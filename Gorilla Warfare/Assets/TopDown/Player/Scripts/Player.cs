@@ -8,17 +8,18 @@ namespace TopDown
     {
 
         PlayerController controller;
+        [SerializeField] HunterController hController;
+        [SerializeField] GorillaControler gController;
 
         Camera camMain;
         Plane groundPlane;
-
         Vector3 mousePoint;
 
         private void Start()
         {
             camMain = Camera.main;
             groundPlane = new Plane(Vector3.up, Vector3.zero);
-            controller = GetComponent<PlayerController>();
+            controller = hController;
 
             lastShootingTime = -shootingCooldown;
         }
@@ -28,7 +29,7 @@ namespace TopDown
             if (controller.isDead) return;
             HandleRotationInput();
             HandleMoveInput();
-            HandleShooting();
+            //HandleShooting();
         }
 
         void HandleMoveInput()
@@ -50,18 +51,24 @@ namespace TopDown
             }
         }
 
+        [ContextMenu("Controller Switch")]
+        public void SwitchController()
+        {
+            controller = controller == hController ? gController : hController;
+        }
+
         public float shootingCooldown = 0.5f;
         float lastShootingTime;
-        void HandleShooting()
-        {
-            if (Input.GetMouseButton(0))
-            {
-                if (Time.time < lastShootingTime + shootingCooldown) return;
-                lastShootingTime = Time.time;
+        //void HandleShooting()
+        //{
+        //    if (Input.GetMouseButton(0))
+        //    {
+        //        if (Time.time < lastShootingTime + shootingCooldown) return;
+        //        lastShootingTime = Time.time;
 
-                controller.Shoot();
-            }
-        }
+        //        controller.Shoot();
+        //    }
+        //}
 
     }
 }

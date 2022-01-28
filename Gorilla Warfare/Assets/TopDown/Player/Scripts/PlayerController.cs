@@ -5,37 +5,36 @@ using UnityEngine;
 
 namespace TopDown
 {
-    public class PlayerController : MonoBehaviour
+    public abstract class PlayerController : MonoBehaviour
     {
         //Movment
         Rigidbody rb;
         [Range(5, 30)]
+
         public float playerSpeed;
 
         Vector3 moveDirection;
+        Vector3 dashDirection;
         Vector3 lookAtPoint;
 
 
         //Animations
-        public Animator[] anim;
+        public Animator anim;
         public bool isDead = false;
 
-        //Shooting
-        Shoot[] shoots;
-
         //Audio
-        AudioSource source;
-        public AudioClip shootAudio;
+        public AudioClip attackAudio;
+        protected AudioSource source;
 
-        private void Start()
+
+        protected virtual void Start()
         {
             rb = GetComponent<Rigidbody>();
-            shoots = GetComponentsInChildren<Shoot>();
             source = GetComponent<AudioSource>();
             isDead = false;
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (isDead) return;
             rb.velocity = moveDirection * playerSpeed;
@@ -50,44 +49,28 @@ namespace TopDown
         public void SetMoveDirection(Vector3 moveDirection)
         {
             this.moveDirection = moveDirection;
-
-            var localForward = ((lookAtPoint - transform.position).normalized);
-            var localRight = new Vector3(localForward.z, 0, -localForward.x); //Rotate 90 degre //refereence: https://www.gamedev.net/forums/topic/357797-rotate-a-vector-by-90-degrees/
-
-            foreach (var a in anim)
-            {
-                a.SetFloat("VelY", Vector3.Dot(localForward, moveDirection), 0.05f, Time.deltaTime);
-                a.SetFloat("VelX", Vector3.Dot(localRight, moveDirection), 0.05f, Time.deltaTime);
-            }
         }
 
-        public void LookAt(Vector3 lookAtPoint)
+        public virtual void LookAt(Vector3 lookAtPoint)
         {
             this.lookAtPoint = new Vector3(lookAtPoint.x, transform.position.y, lookAtPoint.z);
-            if (shoots.Length > 0 && shoots[0])
-                shoots[0].transform.parent.LookAt(lookAtPoint);
         }
 
-        public void Shoot()
-        {
-            foreach (var item in shoots)
-            {
-                item.ShootBullet(shoots[0].transform.parent.rotation);
-            }
-            source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
-            source.PlayOneShot(shootAudio);
-        }
 
-        public void Die()
+
+        public virtual void Die()
         {
             isDead = true;
             rb.isKinematic = true;
             moveDirection = Vector3.zero;
             rb.velocity = Vector3.zero;
-            foreach (var a in anim)
-            {
-                a.CrossFade("Die", 0.1f);
-            }
+            anim.CrossFade("Die", 0.1f);
+
+        }
+
+        public void Dash()
+        {
+
         }
 
 
