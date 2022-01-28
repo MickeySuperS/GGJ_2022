@@ -20,6 +20,7 @@ namespace TopDown
             camMain = Camera.main;
             groundPlane = new Plane(Vector3.up, Vector3.zero);
             controller = hController;
+            gController.enabled = false;
 
             lastShootingTime = -shootingCooldown;
         }
@@ -55,6 +56,8 @@ namespace TopDown
         public void SwitchController()
         {
             controller = controller == hController ? gController : hController;
+            gController.enabled = controller != hController;
+            hController.enabled = controller == hController;
         }
 
         public float shootingCooldown = 0.5f;
