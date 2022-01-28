@@ -1,0 +1,80 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace TopDown
+{
+    public abstract class PlayerController : MonoBehaviour
+    {
+        //Movment
+        Rigidbody rb;
+        [Range(5, 30)]
+
+        public float playerSpeed;
+
+        Vector3 moveDirection;
+        Vector3 dashDirection;
+        Vector3 lookAtPoint;
+
+
+        //Animations
+        public Animator anim;
+        public bool isDead = false;
+
+        //Audio
+        public AudioClip attackAudio;
+        protected AudioSource source;
+
+
+        protected virtual void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+            source = GetComponent<AudioSource>();
+            isDead = false;
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            if (isDead) return;
+
+            rb.velocity = moveDirection * playerSpeed;
+
+            if (moveDirection != Vector3.zero)
+            {
+                var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
+            }
+
+        }
+
+        public void SetMoveDirection(Vector3 moveDirection)
+        {
+            this.moveDirection = moveDirection; 
+        }
+
+        public virtual void LookAt(Vector3 lookAtPoint)
+        {
+            this.lookAtPoint = new Vector3(lookAtPoint.x, transform.position.y, lookAtPoint.z);
+        }
+
+ 
+
+        public virtual void Die()
+        {
+            isDead = true;
+            rb.isKinematic = true;
+            moveDirection = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            anim.CrossFade("Die", 0.1f);
+            
+        }
+
+        public void Dash()
+        {
+            
+        }
+
+
+    }
+}
