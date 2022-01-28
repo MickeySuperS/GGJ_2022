@@ -34,5 +34,10 @@ namespace TopDown
             source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
             source.PlayOneShot(attackAudio);
         }
+
+        public override void TakeDamage(ref float health)
+        {
+
+        }
     }
 }

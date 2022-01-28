@@ -57,6 +57,7 @@ namespace TopDown
         }
 
 
+        public abstract void TakeDamage(ref float health);
 
         public virtual void Die()
         {

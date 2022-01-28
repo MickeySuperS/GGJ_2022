@@ -7,7 +7,7 @@ namespace TopDown
     public class Player : MonoBehaviour
     {
 
-        PlayerController controller;
+        [HideInInspector] public PlayerController controller;
         [SerializeField] HunterController hController;
         [SerializeField] GorillaControler gController;
 

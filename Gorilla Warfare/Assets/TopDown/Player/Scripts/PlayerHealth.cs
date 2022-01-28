@@ -9,12 +9,12 @@ namespace TopDown
         public float maxHealth;
         public float currentHealth;
 
-        PlayerController controller;
+        Player player;
 
         private void Start()
         {
             currentHealth = maxHealth;
-            controller = GetComponent<PlayerController>();
+            player = GetComponent<Player>();
         }
 
         private void OnCollisionEnter(Collision other)
@@ -22,9 +22,9 @@ namespace TopDown
             if (other.gameObject.GetComponent<Enemy>())
             {
                 Destroy(other.gameObject);
-                currentHealth--;
+                player.controller.TakeDamage(ref currentHealth);
                 if (currentHealth <= 0)
-                    controller.Die();
+                    player.controller.Die();
 
             }
         }

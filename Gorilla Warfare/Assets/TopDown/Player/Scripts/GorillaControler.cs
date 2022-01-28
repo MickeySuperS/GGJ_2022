@@ -33,8 +33,8 @@ namespace TopDown
 
         public void Attack()
         {
-           Collider[] hitEnemies =  Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
-           foreach(Collider enemy in hitEnemies)
+            Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+            foreach (Collider enemy in hitEnemies)
             {
                 Debug.Log("hit enemy");
             }
@@ -43,6 +43,11 @@ namespace TopDown
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
+
+        public override void TakeDamage(ref float health)
+        {
+            
         }
     }
 }
