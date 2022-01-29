@@ -55,11 +55,11 @@ namespace TopDown
             {
                 rb.velocity = moveDirection * playerSpeed;
 
-                if (moveDirection != Vector3.zero)
-                {
-                    var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
-                }
+                // if (moveDirection != Vector3.zero)
+                // {
+                //     var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
+                //     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
+                // }
             }
         }
 

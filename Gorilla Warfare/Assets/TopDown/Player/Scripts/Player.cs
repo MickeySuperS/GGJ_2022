@@ -15,6 +15,8 @@ namespace TopDown
         Plane groundPlane;
         Vector3 mousePoint;
 
+        public float switchingRandomMin = 5, switchingRandomMax = 8;
+
         private void Start()
         {
             camMain = Camera.main;
@@ -24,7 +26,7 @@ namespace TopDown
 
             lastShootingTime = -100;
 
-            //StartCoroutine(SwitchController());
+            StartCoroutine(SwitchControllerCORO());
         }
 
         private void Update()
@@ -34,6 +36,17 @@ namespace TopDown
             HandleMoveInput();
             HandleAttack();
             HandleDash();
+            HandleWarning();
+        }
+
+        public GameObject warningGameObject;
+        public float warnBeforeSeconds = 3;
+        float timeRemainingForSwitch = 0;
+
+        void HandleWarning()
+        {
+
+            warningGameObject.SetActive(timeRemainingForSwitch <= warnBeforeSeconds);
         }
 
         private void HandleDash()
@@ -61,14 +74,23 @@ namespace TopDown
             }
         }
 
+
         public IEnumerator SwitchControllerCORO()
         {
             while (!controller.isDead)
             {
                 SwitchController();
-                yield return new WaitForSeconds(4f);
+                timeRemainingForSwitch = Random.Range(switchingRandomMin, switchingRandomMax);
+                while (timeRemainingForSwitch > 0)
+                {
+                    timeRemainingForSwitch -= Time.deltaTime;
+                    yield return null;
+                }
+
             }
         }
+
+
 
         [ContextMenu("Controller Switch")]
         public void SwitchController()
