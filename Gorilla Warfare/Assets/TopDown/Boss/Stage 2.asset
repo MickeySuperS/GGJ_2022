@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb7a1f244dcbd14aaa5a92cc51c2dff, type: 3}
+  m_Name: Stage 2
+  m_EditorClassIdentifier: 
+  percentageToMoveNext: 0.4
+  TeleportEnabled: 1
+  teleportTime: 5
+  timeBeforeTeleport: 0
+  timeAfterTeleport: 0
+  movementEnabled: 1
+  movingTime: 10
+  distanceFromPlayer: 15
+  moveSpeed: 4
+  shootingEnabled: 1
+  shootingTime: 7
+  shootingCooldown: 1
+  bulletSpeed: 80
+  targetPlayer: 1
+  trackingSpeed: 5
+  spawnEnemiesEnabled: 1
+  spawnEnemyTime: 9
+  spawnCircleRadius: 4
+  numberOfEnemiesToSpawn: 4
+  randomSpawnFactor: 3
+  waitTimeAfterCirlceSpawn: 2
+  randomWaitFactor: 1

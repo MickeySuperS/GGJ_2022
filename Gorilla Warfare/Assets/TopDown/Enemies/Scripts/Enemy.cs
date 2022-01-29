@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TopDown
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IHitable
     {
         public int healthPoints;
         protected Player target;
@@ -27,7 +27,7 @@ namespace TopDown
                 Die();
         }
 
-        protected virtual void Die()
+        public virtual void Die()
         {
             Destroy(this.gameObject);
         }

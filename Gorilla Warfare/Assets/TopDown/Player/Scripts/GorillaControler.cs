@@ -30,12 +30,14 @@ namespace TopDown
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider enemycoll in hitEnemies)
             {
-                var enemy = enemycoll.GetComponent<Enemy>();
-                if (enemy)
+                var iHitable = enemycoll.GetComponent<IHitable>();
+                if (iHitable != null)
                 {
+                    iHitable.TakeDamage(25);
+
+                    var enemy = enemycoll.GetComponent<IHitable>();
                     if (enemy is EnemyFollow)
                         (enemy as EnemyFollow).enemyDamagedSpeed = knockBackVal;
-                    enemy.TakeDamage(25);
                 }
             }
         }

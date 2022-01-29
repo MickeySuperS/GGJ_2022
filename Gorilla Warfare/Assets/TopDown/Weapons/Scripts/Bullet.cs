@@ -17,10 +17,11 @@ namespace TopDown
 
         private void OnTriggerEnter(Collider other)
         {
-            var enemy = other.gameObject.GetComponent<Enemy>();
-            if (enemy)
+
+            var hitable = other.gameObject.GetComponent<IHitable>();
+            if (hitable != null)
             {
-                enemy.TakeDamage(10);
+                hitable.TakeDamage(10);
             }
             Destroy(this.gameObject);
         }
