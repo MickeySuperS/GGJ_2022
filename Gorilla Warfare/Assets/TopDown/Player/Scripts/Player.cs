@@ -33,6 +33,13 @@ namespace TopDown
             HandleRotationInput();
             HandleMoveInput();
             HandleAttack();
+            HandleDash();
+        }
+
+        private void HandleDash()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                controller.Dash();
         }
 
         void HandleMoveInput()

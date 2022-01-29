@@ -14,9 +14,14 @@ namespace TopDown
         public float playerSpeed;
 
         Vector3 moveDirection;
-        Vector3 dashDirection;
         Vector3 lookAtPoint;
 
+        //Dash
+        bool isDashing = false;
+        Vector3 dashDirection;
+        public float dashSpeed, dashTime;
+
+        //Attack
         public float attackCD;
         public float knockBackVal;
 
@@ -30,6 +35,7 @@ namespace TopDown
         protected AudioSource source;
 
 
+
         protected virtual void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -40,12 +46,20 @@ namespace TopDown
         protected virtual void FixedUpdate()
         {
             if (isDead) return;
-            rb.velocity = moveDirection * playerSpeed;
 
-            if (moveDirection != Vector3.zero)
+            if (isDashing)
             {
-                var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
+                rb.velocity = dashDirection * dashSpeed;
+            }
+            else
+            {
+                rb.velocity = moveDirection * playerSpeed;
+
+                if (moveDirection != Vector3.zero)
+                {
+                    var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
+                }
             }
         }
 
@@ -76,6 +90,16 @@ namespace TopDown
 
         public void Dash()
         {
+            StartCoroutine(DashCORO());
+        }
+
+        IEnumerator DashCORO()
+        {
+            isDashing = true;
+            dashDirection = moveDirection == Vector3.zero ? (lookAtPoint - transform.position).normalized : moveDirection;
+            yield return new WaitForSeconds(dashTime);
+
+            isDashing = false;
 
         }
 
