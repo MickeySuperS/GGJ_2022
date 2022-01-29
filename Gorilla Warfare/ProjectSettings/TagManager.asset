@@ -14,8 +14,8 @@ TagManager:
   - Hittable
   - Player
   - Bullet
-  - 
-  - 
+  - PostProcessing
+  - BossBullet
   - 
   - 
   - 

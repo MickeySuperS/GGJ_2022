@@ -19,6 +19,8 @@ namespace TopDown
         ShootController shootController;
         SpawnEnemyController spawnEnemyController;
 
+        BossAnimations bossAnimation;
+
         private void Start()
         {
             teleportController = GetComponentInChildren<TeleportController>();
@@ -27,6 +29,7 @@ namespace TopDown
             spawnEnemyController = GetComponentInChildren<SpawnEnemyController>();
             target = FindObjectOfType<Player>().transform;
             currentHealth = health;
+            bossAnimation = GetComponentInChildren<BossAnimations>();
         }
 
 
@@ -52,6 +55,7 @@ namespace TopDown
             shootController.targetPlayer = false;
             spawnEnemyController.KillAllEnemies();
             Debug.LogError("BOSS DIED, GG");
+            Destroy(this.gameObject);
         }
 
 
@@ -169,6 +173,7 @@ namespace TopDown
                     yield return new WaitForSeconds(Random.Range(0, 2f));
                     if (Random.Range(0, 2) == 1)
                     {
+                        bossAnimation.Summon();
                         spawnEnemyController.SpawnEnemies();
                         yield return new WaitForSeconds(Random.Range(currentStage.spawnEnemyTime, currentStage.spawnEnemyTime + 3));
                     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TopDown
 {
-    public abstract class PlayerController : MonoBehaviour
+    public abstract class PlayerController : MonoBehaviour, IHitable
     {
         //Movment
         Rigidbody rb;
@@ -34,6 +34,8 @@ namespace TopDown
 
         public PlayerAnimation playerAnimatoin;
 
+        public bool canMoveWhileAttacking = true;
+
 
         private void Update()
         {
@@ -44,12 +46,19 @@ namespace TopDown
         {
             rb = GetComponent<Rigidbody>();
             source = GetComponent<AudioSource>();
+            health = GetComponentInChildren<PlayerHealth>();
             isDead = false;
         }
 
         protected virtual void FixedUpdate()
         {
             if (isDead) return;
+            if (isAttacking && !canMoveWhileAttacking)
+            {
+                rb.velocity = Vector3.zero;
+                return;
+            }
+
 
             if (isDashing)
             {
@@ -78,7 +87,8 @@ namespace TopDown
         }
 
 
-        public abstract void TakeDamage(ref float health);
+        protected PlayerHealth health;
+        public abstract void TakeDamage(int health);
 
         public virtual void Die()
         {
@@ -87,8 +97,13 @@ namespace TopDown
             moveDirection = Vector3.zero;
             rb.velocity = Vector3.zero;
             playerAnimatoin.Die();
+        }
 
+        public bool isAttacking = false;
 
+        public void PlayAttackAnim()
+        {
+            playerAnimatoin.PlayAttackAnim();
         }
 
         public abstract void Attack();

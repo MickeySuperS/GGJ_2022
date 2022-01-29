@@ -47,9 +47,9 @@ namespace TopDown
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
 
-        public override void TakeDamage(ref float health)
+        public override void TakeDamage(int damage)
         {
-            health -= 10;
+            health.ApplyDamage(10);
         }
     }
 }

@@ -21,12 +21,16 @@ namespace TopDown
         {
             if (other.gameObject.GetComponent<Enemy>())
             {
-             
-                player.controller.TakeDamage(ref currentHealth);
-                if (currentHealth <= 0)
-                    player.controller.Die();
-
+                player.controller.TakeDamage(10);
             }
+        }
+
+        public void ApplyDamage(int damageAmount)
+        {
+            currentHealth -= damageAmount;
+            if (currentHealth <= 0)
+                player.controller.Die();
+
         }
     }
 }

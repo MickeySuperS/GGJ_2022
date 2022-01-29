@@ -9,20 +9,23 @@ namespace TopDown
         public int healthPoints;
         protected Player target;
 
+        EnemyAnimation enemyAnimatoin;
+
         protected virtual void Start()
         {
             target = FindObjectOfType<Player>();
-            
+            enemyAnimatoin = GetComponentInChildren<EnemyAnimation>();
+
         }
 
         protected virtual void Update()
         {
-
+            enemyAnimatoin?.Animate(target.transform.position);
         }
 
         public virtual void TakeDamage(int damage)
         {
-            healthPoints -= damage ;
+            healthPoints -= damage;
             if (healthPoints <= 0)
                 Die();
         }
@@ -32,6 +35,6 @@ namespace TopDown
             Destroy(this.gameObject);
         }
 
-     
+
     }
 }

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TopDown {
+namespace TopDown
+{
     public class EnemyAttack : EnemyFollow
     {
         bool isAttacking;
@@ -18,7 +19,7 @@ namespace TopDown {
         {
             base.Start();
             isAttacking = false;
-            
+
         }
 
         // Update is called once per frame
@@ -38,7 +39,7 @@ namespace TopDown {
         }
         protected override void FixedUpdate()
         {
-            if(!isAttacking)
+            if (!isAttacking)
                 base.FixedUpdate();
 
             else
@@ -53,7 +54,8 @@ namespace TopDown {
             dashDirection = (target.transform.position - transform.position).normalized;
 
             yield return new WaitForSeconds(timeBeforeDash);
-            currentDashSpeed = dashSpeed;
+            if (isAttacking)
+                currentDashSpeed = dashSpeed;
 
 
             yield return new WaitForSeconds(dashTime);
@@ -63,8 +65,9 @@ namespace TopDown {
 
         public override void TakeDamage(int damage)
         {
-            base.TakeDamage(damage);
+            rb.velocity = Vector3.zero;
             isAttacking = false;
+            base.TakeDamage(damage);
 
         }
     }

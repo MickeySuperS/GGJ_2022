@@ -102,6 +102,8 @@ namespace TopDown
             gController.enabled = controller != hController;
             hObject.SetActive(controller == hController);
             gObject.SetActive(controller != hController);
+            hController.isAttacking = false;
+            gController.isAttacking = false;
         }
 
         float lastShootingTime;
@@ -112,7 +114,7 @@ namespace TopDown
                 if (Time.time < lastShootingTime + controller.attackCD) return;
                 lastShootingTime = Time.time;
 
-                controller.Attack();
+                controller.PlayAttackAnim();
             }
         }
 

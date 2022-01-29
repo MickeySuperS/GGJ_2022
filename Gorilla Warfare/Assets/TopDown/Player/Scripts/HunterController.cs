@@ -37,9 +37,9 @@ namespace TopDown
             //source.PlayOneShot(attackAudio);
         }
 
-        public override void TakeDamage(ref float health)
+        public override void TakeDamage(int damageAmount)
         {
-            health -= 20;
+            health.ApplyDamage(20);
         }
     }
 }

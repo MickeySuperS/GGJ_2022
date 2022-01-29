@@ -9,6 +9,7 @@ namespace TopDown
         public float enemySpeed;
 
         [HideInInspector] public float enemyDamagedSpeed;
+        float defaultEnemyDamageSpeed = -20;
         float currentSpeed;
         protected Rigidbody rb;
 
@@ -23,6 +24,7 @@ namespace TopDown
         {
             base.TakeDamage(damage);
             currentSpeed = enemyDamagedSpeed;
+            enemyDamagedSpeed = defaultEnemyDamageSpeed;
         }
 
         protected virtual void FixedUpdate()

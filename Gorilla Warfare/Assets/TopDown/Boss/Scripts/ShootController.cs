@@ -7,7 +7,7 @@ namespace TopDown
     public class ShootController : MonoBehaviour
     {
 
-        public Rigidbody bulletPrefab;
+        public Bullet bulletPrefab;
         public Transform bulletSpawnLocation;
         public float cooldown = 1f;
         public float bulletSpeed = 100f;
@@ -56,9 +56,9 @@ namespace TopDown
         public void Shoot()
         {
             lastShotTime = Time.time;
-            var bulletRb = Instantiate(bulletPrefab, bulletSpawnLocation.position, bulletSpawnLocation.rotation);
-            bulletRb.velocity = transform.forward * bulletSpeed;
-            Destroy(bulletRb.gameObject, 5f);
+            var bulletObj = Instantiate(bulletPrefab, bulletSpawnLocation.position, bulletSpawnLocation.rotation) as Bullet;
+            bulletObj.bulletSpeed = bulletSpeed;
+            Destroy(bulletObj.gameObject, 5f);
         }
 
     }

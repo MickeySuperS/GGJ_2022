@@ -18,9 +18,6 @@ namespace TopDown
         public float waitTimeAfterCirlceSpawn = 2;
         public float randomWaitFactor = 0;
 
-        List<GameObject> enemiesSpawned = new List<GameObject>();
-
-
         Boss boss;
 
         private void Start()
@@ -51,23 +48,16 @@ namespace TopDown
                 Vector2 randomCirlce = Random.insideUnitCircle * spawnCircleRadius;
                 Vector3 spawnPoint = randomPoint + new Vector3(randomCirlce.x, 0f, randomCirlce.y);
                 var enemy = Instantiate(enemyToSpawnPrefab, spawnPoint, Quaternion.identity);
-                enemiesSpawned.Add(enemy);
             }
 
         }
 
         public void KillAllEnemies()
         {
-            for (int i = enemiesSpawned.Count - 1; i > 0; i--)
+            var allEnemies = FindObjectsOfType<Enemy>();
+            for (int i = allEnemies.Length - 1; i > 0; i--)
             {
-                if (!enemiesSpawned[i])
-                {
-                    enemiesSpawned.RemoveAt(i);
-                    continue;
-                }
-
-                enemiesSpawned[i].GetComponent<Enemy>()?.Die();
-                enemiesSpawned.RemoveAt(i);
+                allEnemies[i].Die();
             }
         }
     }
