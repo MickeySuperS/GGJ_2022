@@ -18,7 +18,6 @@ public class PlayerAnimation : MonoBehaviour
     public void Animate(Vector3 moveDirection, Vector3 lookAtPoint)
     {
         var diff = transform.position - lookAtPoint;
-        Debug.LogError(diff);
 
 
         rend.flipX = diff.x < 0;
