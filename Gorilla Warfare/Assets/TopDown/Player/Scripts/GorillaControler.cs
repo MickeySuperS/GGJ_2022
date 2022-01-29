@@ -22,7 +22,7 @@ namespace TopDown
 
         public override void LookAt(Vector3 lookAtPoint)
         {
-            base.Start();
+            base.LookAt(lookAtPoint);
         }
 
         public override void Attack()

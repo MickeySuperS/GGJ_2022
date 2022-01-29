@@ -26,15 +26,19 @@ namespace TopDown
         public float knockBackVal;
 
 
-        //Animations
-        public Animator anim;
         public bool isDead = false;
 
         //Audio
         public AudioClip attackAudio;
         protected AudioSource source;
 
+        public PlayerAnimation playerAnimatoin;
 
+
+        private void Update()
+        {
+            playerAnimatoin.Animate(moveDirection, lookAtPoint);
+        }
 
         protected virtual void Start()
         {
@@ -82,7 +86,8 @@ namespace TopDown
             rb.isKinematic = true;
             moveDirection = Vector3.zero;
             rb.velocity = Vector3.zero;
-            anim.CrossFade("Die", 0.1f);
+            playerAnimatoin.Die();
+
 
         }
 

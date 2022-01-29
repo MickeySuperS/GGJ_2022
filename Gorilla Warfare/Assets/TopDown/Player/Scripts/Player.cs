@@ -10,6 +10,8 @@ namespace TopDown
         [HideInInspector] public PlayerController controller;
         [SerializeField] HunterController hController;
         [SerializeField] GorillaControler gController;
+        [SerializeField] GameObject hObject;
+        [SerializeField] GameObject gObject;
 
         Camera camMain;
         Plane groundPlane;
@@ -96,8 +98,10 @@ namespace TopDown
         public void SwitchController()
         {
             controller = controller == hController ? gController : hController;
-            gController.enabled = controller != hController;
             hController.enabled = controller == hController;
+            gController.enabled = controller != hController;
+            hObject.SetActive(controller == hController);
+            gObject.SetActive(controller != hController);
         }
 
         float lastShootingTime;
