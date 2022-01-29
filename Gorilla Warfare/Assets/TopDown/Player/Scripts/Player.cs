@@ -22,7 +22,9 @@ namespace TopDown
             controller = hController;
             gController.enabled = false;
 
-            lastShootingTime = -shootingCooldown;
+            lastShootingTime = -100;
+
+            //StartCoroutine(SwitchController());
         }
 
         private void Update()
@@ -30,7 +32,7 @@ namespace TopDown
             if (controller.isDead) return;
             HandleRotationInput();
             HandleMoveInput();
-            //HandleShooting();
+            HandleAttack();
         }
 
         void HandleMoveInput()
@@ -52,6 +54,15 @@ namespace TopDown
             }
         }
 
+        public IEnumerator SwitchControllerCORO()
+        {
+            while (!controller.isDead)
+            {
+                SwitchController();
+                yield return new WaitForSeconds(4f);
+            }
+        }
+
         [ContextMenu("Controller Switch")]
         public void SwitchController()
         {
@@ -60,18 +71,17 @@ namespace TopDown
             hController.enabled = controller == hController;
         }
 
-        public float shootingCooldown = 0.5f;
         float lastShootingTime;
-        //void HandleShooting()
-        //{
-        //    if (Input.GetMouseButton(0))
-        //    {
-        //        if (Time.time < lastShootingTime + shootingCooldown) return;
-        //        lastShootingTime = Time.time;
+        void HandleAttack()
+        {
+            if (Input.GetMouseButton(0))
+            {
+                if (Time.time < lastShootingTime + controller.attackCD) return;
+                lastShootingTime = Time.time;
 
-        //        controller.Shoot();
-        //    }
-        //}
+                controller.Attack();
+            }
+        }
 
     }
 }

@@ -21,7 +21,7 @@ namespace TopDown
         {
             if (other.gameObject.GetComponent<Enemy>())
             {
-                Destroy(other.gameObject);
+             
                 player.controller.TakeDamage(ref currentHealth);
                 if (currentHealth <= 0)
                     player.controller.Die();

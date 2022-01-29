@@ -10,6 +10,8 @@ namespace TopDown
         public float attackRange = 0.5f;
         public LayerMask enemyLayer;
 
+
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -17,26 +19,24 @@ namespace TopDown
 
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Attack();
-            }
-        }
 
         public override void LookAt(Vector3 lookAtPoint)
         {
             base.Start();
         }
 
-        public void Attack()
+        public override void Attack()
         {
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
-            foreach (Collider enemy in hitEnemies)
+            foreach (Collider enemycoll in hitEnemies)
             {
-                Debug.Log("hit enemy");
+                var enemy = enemycoll.GetComponent<Enemy>();
+                if (enemy)
+                {
+                    if (enemy is EnemyFollow)
+                        (enemy as EnemyFollow).enemyDamagedSpeed = knockBackVal;
+                    enemy.TakeDamage(25);
+                }
             }
         }
 
@@ -47,7 +47,7 @@ namespace TopDown
 
         public override void TakeDamage(ref float health)
         {
-            
+            health -= 10;
         }
     }
 }

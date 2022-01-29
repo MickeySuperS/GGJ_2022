@@ -17,6 +17,9 @@ namespace TopDown
         Vector3 dashDirection;
         Vector3 lookAtPoint;
 
+        public float attackCD;
+        public float knockBackVal;
+
 
         //Animations
         public Animator anim;
@@ -68,6 +71,8 @@ namespace TopDown
             anim.CrossFade("Die", 0.1f);
 
         }
+
+        public abstract void Attack();
 
         public void Dash()
         {

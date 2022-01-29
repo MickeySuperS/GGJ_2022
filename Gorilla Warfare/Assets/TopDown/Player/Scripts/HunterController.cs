@@ -25,19 +25,20 @@ namespace TopDown
                 shoots[0].transform.parent.LookAt(lookAtPoint);
         }
 
-        public void Shoot()
+        public override void Attack()
         {
+            
             foreach (var item in shoots)
             {
                 item.ShootBullet(shoots[0].transform.parent.rotation);
             }
-            source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
-            source.PlayOneShot(attackAudio);
+            //source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
+            //source.PlayOneShot(attackAudio);
         }
 
         public override void TakeDamage(ref float health)
         {
-
+            health -= 20;
         }
     }
 }

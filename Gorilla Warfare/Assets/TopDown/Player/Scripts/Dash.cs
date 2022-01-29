@@ -2,57 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dash : MonoBehaviour
+namespace TopDown
 {
-
-    Rigidbody rb;
-    public float dashSpeed;
-    float dashTime;
-    public float startDashTime;
-    int direction;
-    // Start is called before the first frame update
-    void Start()
+    public class Dash : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-        dashTime = startDashTime; 
-    }
+        public float dashForce = 10f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(direction == 0)
+        private Rigidbody rb;
+
+        private Vector3 _previousPos;
+
+        private Vector3 _currentPos;
+
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
-                direction = 1;
-            else if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
-                direction = 2;
-            else if (Input.GetKeyDown(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift))
-                direction = 3;
-            else if (Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
-                direction = 4;
+            rb = GetComponent<Rigidbody>();
         }
-        else
+
+        private void Update()
         {
-            if (dashTime <= 0)
+            _previousPos = _currentPos;
+
+            _currentPos = transform.position;
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                direction = 0;
+                Cast();
             }
-            else
+        }
+
+        public Vector3 moveDirection
+        {
+            get
             {
-                dashTime -= Time.deltaTime;
-                if (direction == 1)
-                    rb.velocity = Vector3.forward * dashSpeed * Time.deltaTime;
-
-                if (direction == 2)
-                    rb.velocity = Vector3.left * dashSpeed * Time.deltaTime;
-
-                if (direction == 3)
-                    rb.velocity = Vector3.back * dashSpeed * Time.deltaTime;
-
-                if (direction == 4)
-                    rb.velocity = Vector3.right * dashSpeed * Time.deltaTime;
-
+                return (_currentPos - _previousPos).normalized;
             }
+        }
+
+        void Cast()
+        {
+            rb.AddForce(moveDirection * dashForce, ForceMode.Impulse);
         }
     }
 }

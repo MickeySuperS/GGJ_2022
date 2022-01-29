@@ -12,6 +12,7 @@ namespace TopDown
         protected virtual void Start()
         {
             target = FindObjectOfType<Player>();
+            
         }
 
         protected virtual void Update()
@@ -19,9 +20,9 @@ namespace TopDown
 
         }
 
-        public virtual void TakeDamage()
+        public virtual void TakeDamage(int damage)
         {
-            healthPoints--;
+            healthPoints -= damage ;
             if (healthPoints <= 0)
                 Die();
         }
@@ -30,5 +31,7 @@ namespace TopDown
         {
             Destroy(this.gameObject);
         }
+
+     
     }
 }

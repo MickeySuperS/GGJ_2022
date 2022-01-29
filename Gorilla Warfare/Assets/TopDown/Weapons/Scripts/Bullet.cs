@@ -20,7 +20,7 @@ namespace TopDown
             var enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy)
             {
-                enemy.TakeDamage();
+                enemy.TakeDamage(10);
             }
             Destroy(this.gameObject);
         }

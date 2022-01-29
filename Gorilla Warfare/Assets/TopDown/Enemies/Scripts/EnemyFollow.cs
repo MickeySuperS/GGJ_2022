@@ -8,9 +8,9 @@ namespace TopDown
     {
         public float enemySpeed;
 
-        float enemyDamagedSpeed = -30f;
-        [SerializeField] float currentSpeed;
-        Rigidbody rb;
+        [HideInInspector] public float enemyDamagedSpeed;
+        float currentSpeed;
+        protected Rigidbody rb;
 
         protected override void Start()
         {
@@ -19,9 +19,9 @@ namespace TopDown
             currentSpeed = enemySpeed;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
-            base.TakeDamage();
+            base.TakeDamage(damage);
             currentSpeed = enemyDamagedSpeed;
         }
 
@@ -30,11 +30,7 @@ namespace TopDown
             if (currentSpeed != enemySpeed)
                 currentSpeed = Mathf.Lerp(currentSpeed, enemySpeed, 4f * Time.fixedDeltaTime);
             rb.velocity = (target.transform.position - transform.position).normalized * currentSpeed;
-            if (rb.velocity != Vector3.zero)
-            {
-                var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
-            }
+
         }
     }
 }
