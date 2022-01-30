@@ -18,6 +18,8 @@ namespace TopDown
         public bool targetPlayer = true;
         [Range(0, 15)] public float trackingSpeed = 0;
 
+        public AudioClip shootingClip;
+
         Boss boss;
         private void Start()
         {
@@ -28,7 +30,7 @@ namespace TopDown
         {
             if (targetPlayer)
             {
-                Vector3 targetDir = boss.target.position - transform.position;
+                Vector3 targetDir = boss.target.transform.position - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, trackingSpeed * Time.deltaTime);
             }
@@ -59,6 +61,8 @@ namespace TopDown
             var bulletObj = Instantiate(bulletPrefab, bulletSpawnLocation.position, bulletSpawnLocation.rotation) as Bullet;
             bulletObj.bulletSpeed = bulletSpeed;
             Destroy(bulletObj.gameObject, 5f);
+            boss.source.pitch = Random.Range(0.7f, 1.3f);
+            boss.source.PlayOneShot(shootingClip);
         }
 
     }

@@ -30,7 +30,7 @@ namespace TopDown
 
         //Audio
         public AudioClip attackAudio;
-        protected AudioSource source;
+        public AudioSource source;
 
         public PlayerAnimation playerAnimatoin;
 
@@ -92,11 +92,14 @@ namespace TopDown
 
         public virtual void Die()
         {
+
             isDead = true;
             rb.isKinematic = true;
             moveDirection = Vector3.zero;
             rb.velocity = Vector3.zero;
             playerAnimatoin.Die();
+            WinLoseScreen.instace.SetWin(false);
+            WinLoseScreen.instace.EndGame();
         }
 
         public bool isAttacking = false;

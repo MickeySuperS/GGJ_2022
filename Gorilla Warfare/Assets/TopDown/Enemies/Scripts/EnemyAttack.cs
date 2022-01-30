@@ -15,10 +15,20 @@ namespace TopDown
         public float dashTime;
 
         // Start is called before the first frame update
+
+        public AudioSource source;
+        public AudioClip monkeySound;
         protected override void Start()
         {
             base.Start();
             isAttacking = false;
+
+            if (Random.Range(0, 10) < 3)
+            {
+                source.pitch = Random.Range(0.5f, 1.3f);
+                source.PlayOneShot(monkeySound);
+            }
+
 
         }
 
@@ -26,6 +36,7 @@ namespace TopDown
 
         protected override void Update()
         {
+            if (WinLoseScreen.instace.gameEnded) return;
             if (isAttacking)
             {
                 return;
@@ -52,6 +63,13 @@ namespace TopDown
             isAttacking = true;
             currentDashSpeed = 0;
             dashDirection = (target.transform.position - transform.position).normalized;
+
+
+            if (Random.Range(0, 10) < 3)
+            {
+                source.pitch = Random.Range(0.5f, 1.3f);
+                source.PlayOneShot(monkeySound);
+            }
 
             yield return new WaitForSeconds(timeBeforeDash);
             if (isAttacking)

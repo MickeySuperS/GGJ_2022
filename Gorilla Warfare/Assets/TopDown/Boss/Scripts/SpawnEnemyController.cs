@@ -18,6 +18,7 @@ namespace TopDown
         public float waitTimeAfterCirlceSpawn = 2;
         public float randomWaitFactor = 0;
 
+        public AudioClip spawnEnemyClip;
         Boss boss;
 
         private void Start()
@@ -34,6 +35,8 @@ namespace TopDown
 
         IEnumerator SpawnEnemyCoro()
         {
+            boss.source.pitch = Random.Range(0.7f, 1.3f);
+            boss.source.PlayOneShot(spawnEnemyClip);
             yield return null;
             Vector3 randomPoint = boss.GetRandomPoint();
             var circle = Instantiate(spawnCirclePrefab, randomPoint, Quaternion.identity);

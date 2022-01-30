@@ -19,6 +19,8 @@ namespace TopDown
 
         public float switchingRandomMin = 5, switchingRandomMax = 8;
 
+        public AudioClip transformClip;
+
         private void Start()
         {
             camMain = Camera.main;
@@ -104,6 +106,14 @@ namespace TopDown
             gObject.SetActive(controller != hController);
             hController.isAttacking = false;
             gController.isAttacking = false;
+            gController.playerAnimatoin.anim.StopPlayback();
+            hController.playerAnimatoin.anim.StopPlayback();
+
+
+            if (gController.enabled)
+            {
+                gController.source.PlayOneShot(transformClip);
+            }
         }
 
         float lastShootingTime;

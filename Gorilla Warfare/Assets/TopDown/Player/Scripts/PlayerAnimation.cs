@@ -21,6 +21,7 @@ namespace TopDown
         {
             anim = GetComponent<Animator>();
             rend = GetComponent<SpriteRenderer>();
+            rend.receiveShadows = true;
         }
 
         public void Animate(Vector3 moveDirection, Vector3 lookAtPoint)
@@ -61,12 +62,12 @@ namespace TopDown
 
         public void Attack()
         {
-            pController.isAttacking = false;
-            pController.isAttacking = false;
             if (!pController.enabled) return;
-
             pController.Attack();
-            pController.isAttacking = false;
+        }
+
+        public void EndAttack()
+        {
             pController.isAttacking = false;
         }
 

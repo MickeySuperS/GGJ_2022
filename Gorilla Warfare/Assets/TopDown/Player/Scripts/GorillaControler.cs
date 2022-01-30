@@ -19,14 +19,20 @@ namespace TopDown
 
         }
 
+        public AudioClip gorillaSmash;
+
 
         public override void LookAt(Vector3 lookAtPoint)
         {
             base.LookAt(lookAtPoint);
         }
 
+        public ParticleSystem ps;
         public override void Attack()
         {
+            if (ps)
+                ps.Play();
+            source.PlayOneShot(gorillaSmash);
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider enemycoll in hitEnemies)
             {

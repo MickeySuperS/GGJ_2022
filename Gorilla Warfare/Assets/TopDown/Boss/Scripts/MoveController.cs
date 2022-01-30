@@ -38,7 +38,7 @@ namespace TopDown
                 dirValue *= -1;
             }
 
-            Vector3 dir = (boss.target.position - transform.position);
+            Vector3 dir = (boss.target.transform.position - transform.position);
             float forwardBackwardFactor = dir.magnitude - distanceFromPlayer;
             dir.Normalize();
             var localRight = new Vector3(dir.z, 0, -dir.x); //Rotate 90 degre //refereence: https://www.gamedev.net/forums/topic/357797-rotate-a-vector-by-90-degrees/

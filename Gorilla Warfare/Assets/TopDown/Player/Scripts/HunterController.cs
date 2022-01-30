@@ -33,8 +33,8 @@ namespace TopDown
             {
                 item.ShootBullet(shoots[0].transform.parent.rotation);
             }
-            //source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
-            //source.PlayOneShot(attackAudio);
+            source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
+            source.PlayOneShot(attackAudio);
         }
 
         public override void TakeDamage(int damageAmount)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TopDown
 {
@@ -10,7 +11,9 @@ namespace TopDown
         public float health;
         [SerializeField] float currentHealth;
 
-        [HideInInspector] public Transform target;
+        [HideInInspector] public Player target;
+
+        public Slider healthSlider;
 
         public Transform point1, point2;
 
@@ -21,21 +24,32 @@ namespace TopDown
 
         BossAnimations bossAnimation;
 
+        public AudioClip gameStartClip;
+        public AudioSource source;
+
         private void Start()
         {
             teleportController = GetComponentInChildren<TeleportController>();
             moveController = GetComponentInChildren<MoveController>();
             shootController = GetComponentInChildren<ShootController>();
             spawnEnemyController = GetComponentInChildren<SpawnEnemyController>();
-            target = FindObjectOfType<Player>().transform;
+            target = FindObjectOfType<Player>();
             currentHealth = health;
             bossAnimation = GetComponentInChildren<BossAnimations>();
+            StartBossFight();
+        }
+
+        private void Update()
+        {
+            healthSlider.value = currentHealth / health;
         }
 
 
         [ContextMenu("Start BOSS FIGHT")]
         void StartBossFight()
         {
+            bossStageManager.currentStageIndex = 0;
+            source.PlayOneShot(gameStartClip);
             StartCoroutine(BossFightCoro());
         }
 
@@ -56,6 +70,8 @@ namespace TopDown
             spawnEnemyController.KillAllEnemies();
             Debug.LogError("BOSS DIED, GG");
             Destroy(this.gameObject);
+            WinLoseScreen.instace.SetWin(true);
+            WinLoseScreen.instace.EndGame();
         }
 
 
@@ -111,7 +127,7 @@ namespace TopDown
 
         IEnumerator MovingCORO()
         {
-            while (currentHealth > 0)
+            while (currentHealth > 0 && !target.controller.isDead)
             {
                 if (currentStage.movementEnabled)
                 {
@@ -130,7 +146,7 @@ namespace TopDown
 
         IEnumerator ShootingCORO()
         {
-            while (currentHealth > 0)
+            while (currentHealth > 0 && !target.controller.isDead)
             {
                 if (currentStage.shootingEnabled)
                 {
@@ -149,7 +165,7 @@ namespace TopDown
 
         IEnumerator TeleportCORO()
         {
-            while (currentHealth > 0)
+            while (currentHealth > 0 && !target.controller.isDead)
             {
                 if (currentStage.TeleportEnabled)
                 {
@@ -166,7 +182,7 @@ namespace TopDown
 
         IEnumerator SpawnCORO()
         {
-            while (currentHealth > 0)
+            while (currentHealth > 0 && !target.controller.isDead)
             {
                 if (currentStage.spawnEnemiesEnabled)
                 {
