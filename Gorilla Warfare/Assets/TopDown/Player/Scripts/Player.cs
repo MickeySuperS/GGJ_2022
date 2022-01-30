@@ -25,8 +25,9 @@ namespace TopDown
         {
             camMain = Camera.main;
             groundPlane = new Plane(Vector3.up, Vector3.zero);
-            controller = hController;
-            gController.enabled = false;
+            controller = gController;
+            gController.enabled = true;
+            hController.enabled = false;
 
             lastShootingTime = -100;
 
@@ -108,7 +109,7 @@ namespace TopDown
             gController.isAttacking = false;
             gController.playerAnimatoin.anim.StopPlayback();
             hController.playerAnimatoin.anim.StopPlayback();
-
+            lastShootingTime = -controller.attackCD;
 
             if (gController.enabled)
             {
