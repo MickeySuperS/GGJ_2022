@@ -25,6 +25,14 @@ namespace TopDown
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.GetComponent<Enemy>())
+            {
+                player.controller.TakeDamage(10);
+            }
+        }
+
         public void ApplyDamage(int damageAmount)
         {
             currentHealth -= damageAmount;
