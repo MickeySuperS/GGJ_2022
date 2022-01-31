@@ -58,7 +58,10 @@ namespace TopDown
         {
             currentHealth -= damage;
             if (currentHealth <= 0)
+            {
+                healthSlider.value = currentHealth / health;
                 Die();
+            }
         }
 
         void Die()
