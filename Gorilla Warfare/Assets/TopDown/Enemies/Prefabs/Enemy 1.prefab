@@ -83,10 +83,11 @@ MonoBehaviour:
   enemyDamagedSpeed: -30
   dashSpeed: 50
   distanceToAttack: 5
-  timeBeforeDash: 0.5
+  timeBeforeDash: 5
   dashTime: 0.2
   source: {fileID: 2932517647978109990}
   monkeySound: {fileID: 8300000, guid: 93204c4986fb5b947a2cc48b14dcf430, type: 3}
+  attackRecoveryTime: 0.5
 --- !u!82 &2932517647978109990
 AudioSource:
   m_ObjectHideFlags: 0

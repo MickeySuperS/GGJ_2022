@@ -39,11 +39,11 @@ namespace TopDown
                 var iHitable = enemycoll.GetComponent<IHitable>();
                 if (iHitable != null)
                 {
-                    iHitable.TakeDamage(25);
-
                     var enemy = enemycoll.GetComponent<IHitable>();
                     if (enemy is EnemyFollow)
                         (enemy as EnemyFollow).enemyDamagedSpeed = knockBackVal;
+
+                    iHitable.TakeDamage(25);
                 }
             }
         }

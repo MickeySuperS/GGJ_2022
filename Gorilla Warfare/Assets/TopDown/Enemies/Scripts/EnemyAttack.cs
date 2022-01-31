@@ -13,21 +13,33 @@ namespace TopDown
         public float distanceToAttack;
         public float timeBeforeDash;
         public float dashTime;
+        Collider colliderr;
 
         // Start is called before the first frame update
 
         public AudioSource source;
         public AudioClip monkeySound;
+
+
+
+        float canAttackTimer = 0;
+        public float attackRecoveryTime = 0.5f;
+
+
         protected override void Start()
         {
             base.Start();
             isAttacking = false;
+
+            colliderr = GetComponent<Collider>();
 
             if (Random.Range(0, 10) < 3)
             {
                 source.pitch = Random.Range(0.5f, 1.3f);
                 source.PlayOneShot(monkeySound);
             }
+
+
 
 
         }
@@ -42,6 +54,12 @@ namespace TopDown
                 return;
             }
 
+            if (canAttackTimer > 0)
+            {
+                canAttackTimer -= Time.deltaTime;
+                return;
+            }
+
             base.Update();
             float distance = (target.transform.position - transform.position).magnitude;
 
@@ -51,8 +69,9 @@ namespace TopDown
         protected override void FixedUpdate()
         {
             if (!isAttacking)
+            {
                 base.FixedUpdate();
-
+            }
             else
             {
                 rb.velocity = dashDirection * currentDashSpeed;
@@ -60,12 +79,9 @@ namespace TopDown
         }
         IEnumerator AttackCORO()
         {
-            isAttacking = true;
-            currentDashSpeed = 0;
-            dashDirection = (target.transform.position - transform.position).normalized;
+            SetAttackParams();
 
-
-            if (Random.Range(0, 10) < 3)
+            if (Random.Range(0, 10) < 2)
             {
                 source.pitch = Random.Range(0.5f, 1.3f);
                 source.PlayOneShot(monkeySound);
@@ -74,17 +90,34 @@ namespace TopDown
             yield return new WaitForSeconds(timeBeforeDash);
             if (isAttacking)
                 currentDashSpeed = dashSpeed;
+            else
+                EndAttackParams();
 
 
             yield return new WaitForSeconds(dashTime);
             isAttacking = false;
+            EndAttackParams();
+        }
 
+        void SetAttackParams()
+        {
+            //colliderr.isTrigger = true;
+            isAttacking = true;
+            currentDashSpeed = 0;
+            dashDirection = (target.transform.position - transform.position).normalized;
+        }
+
+        void EndAttackParams()
+        {
+            //colliderr.isTrigger = false;
+            canAttackTimer = attackRecoveryTime;
+            isAttacking = false;
         }
 
         public override void TakeDamage(int damage)
         {
-            rb.velocity = Vector3.zero;
-            isAttacking = false;
+            StopAllCoroutines();
+            EndAttackParams();
             base.TakeDamage(damage);
 
         }
