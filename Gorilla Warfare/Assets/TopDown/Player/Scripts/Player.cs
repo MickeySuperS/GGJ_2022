@@ -21,7 +21,7 @@ namespace TopDown
 
         public AudioClip transformClip;
 
-        private void Start()
+        private void Awake()
         {
             camMain = Camera.main;
             groundPlane = new Plane(Vector3.up, Vector3.zero);
