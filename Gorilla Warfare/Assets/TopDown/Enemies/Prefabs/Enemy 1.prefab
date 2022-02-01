@@ -88,6 +88,7 @@ MonoBehaviour:
   source: {fileID: 2932517647978109990}
   monkeySound: {fileID: 8300000, guid: 93204c4986fb5b947a2cc48b14dcf430, type: 3}
   attackRecoveryTime: 0.5
+  deathParticlePrefab: {fileID: 6420266107967873648, guid: ded3fb06a13074b41b89703dc5af8c8b, type: 3}
 --- !u!82 &2932517647978109990
 AudioSource:
   m_ObjectHideFlags: 0

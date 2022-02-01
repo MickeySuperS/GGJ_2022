@@ -38,10 +38,6 @@ namespace TopDown
                 source.pitch = Random.Range(0.5f, 1.3f);
                 source.PlayOneShot(monkeySound);
             }
-
-
-
-
         }
 
         // Update is called once per frame
@@ -120,6 +116,13 @@ namespace TopDown
             EndAttackParams();
             base.TakeDamage(damage);
 
+        }
+
+        public GameObject deathParticlePrefab;
+        public override void Die()
+        {
+            Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            base.Die();
         }
     }
 }

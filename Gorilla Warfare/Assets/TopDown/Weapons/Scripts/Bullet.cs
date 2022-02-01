@@ -12,6 +12,7 @@ namespace TopDown
         float defaultScale = 1;
         Rigidbody rb;
         float localTimer = 0;
+        public GameObject particlePrefab;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -28,6 +29,7 @@ namespace TopDown
             {
                 hitable.TakeDamage(10);
             }
+            Instantiate(particlePrefab, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
 
