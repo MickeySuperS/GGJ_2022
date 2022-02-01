@@ -58,7 +58,7 @@ namespace TopDown
         public void KillAllEnemies()
         {
             var allEnemies = FindObjectsOfType<Enemy>();
-            for (int i = allEnemies.Length - 1; i > 0; i--)
+            for (int i = allEnemies.Length - 1; i >= 0; i--)
             {
                 allEnemies[i].Die();
             }

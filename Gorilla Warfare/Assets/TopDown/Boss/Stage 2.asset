@@ -23,8 +23,8 @@ MonoBehaviour:
   moveSpeed: 4
   shootingEnabled: 1
   shootingTime: 7
-  shootingCooldown: 1
-  bulletSpeed: 80
+  shootingCooldown: 0.7
+  bulletSpeed: 10
   targetPlayer: 1
   trackingSpeed: 5
   spawnEnemiesEnabled: 1

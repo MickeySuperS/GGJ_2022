@@ -60,7 +60,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106659294674943245}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5077368
   m_Height: 2.2809014
@@ -83,7 +83,7 @@ MonoBehaviour:
   enemyDamagedSpeed: -30
   dashSpeed: 50
   distanceToAttack: 5
-  timeBeforeDash: 5
+  timeBeforeDash: 0.5
   dashTime: 0.2
   source: {fileID: 2932517647978109990}
   monkeySound: {fileID: 8300000, guid: 93204c4986fb5b947a2cc48b14dcf430, type: 3}
