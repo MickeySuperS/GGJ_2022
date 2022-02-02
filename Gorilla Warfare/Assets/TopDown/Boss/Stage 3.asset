@@ -19,7 +19,7 @@ MonoBehaviour:
   timeAfterTeleport: 0.1
   movementEnabled: 1
   movingTime: 9
-  distanceFromPlayer: 10
+  distanceFromPlayer: 12
   moveSpeed: 9
   shootingEnabled: 1
   shootingTime: 10

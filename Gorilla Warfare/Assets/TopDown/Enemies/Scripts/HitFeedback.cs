@@ -25,6 +25,7 @@ namespace TopDown
         public void AnimateTakeDamage()
         {
             damageTime = 0;
+            StopAllCoroutines();
             StartCoroutine(TakeDamageAnimation());
         }
 

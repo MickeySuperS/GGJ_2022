@@ -8,8 +8,10 @@ namespace TopDown
     public class EnemyAnimation : MonoBehaviour
     {
         SpriteRenderer rend;
+        public Animator anim;
         private void Start()
         {
+            anim = GetComponent<Animator>();
             rend = GetComponent<SpriteRenderer>();
         }
 

@@ -7,15 +7,16 @@ namespace TopDown
     public abstract class Enemy : MonoBehaviour, IHitable
     {
         public int healthPoints;
+        protected int currentHp;
         protected Player target;
 
-        EnemyAnimation enemyAnimatoin;
+        protected EnemyAnimation enemyAnimatoin;
 
         protected virtual void Start()
         {
             target = FindObjectOfType<Player>();
             enemyAnimatoin = GetComponentInChildren<EnemyAnimation>();
-
+            currentHp = healthPoints;
         }
 
         protected virtual void Update()
@@ -25,8 +26,8 @@ namespace TopDown
 
         public virtual void TakeDamage(int damage)
         {
-            healthPoints -= damage;
-            if (healthPoints <= 0)
+            currentHp -= damage;
+            if (currentHp <= 0)
                 Die();
         }
 

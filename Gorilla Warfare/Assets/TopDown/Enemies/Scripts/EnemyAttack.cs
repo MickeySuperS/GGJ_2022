@@ -25,6 +25,8 @@ namespace TopDown
         float canAttackTimer = 0;
         public float attackRecoveryTime = 0.5f;
 
+        float enemyCurrentLocalScale;
+
 
         protected override void Start()
         {
@@ -38,6 +40,8 @@ namespace TopDown
                 source.pitch = Random.Range(0.5f, 1.3f);
                 source.PlayOneShot(monkeySound);
             }
+
+            enemyCurrentLocalScale = enemyAnimatoin.anim.transform.localScale.x;
         }
 
         // Update is called once per frame
@@ -97,20 +101,26 @@ namespace TopDown
 
         void SetAttackParams()
         {
+            enemyAnimatoin.anim.enabled = false;
+            enemyAnimatoin.anim.transform.localScale = Vector3.one * (enemyCurrentLocalScale + 1.4f);
             //colliderr.isTrigger = true;
             isAttacking = true;
             currentDashSpeed = 0;
             dashDirection = (target.transform.position - transform.position).normalized;
+
         }
 
         void EndAttackParams()
         {
+            enemyAnimatoin.anim.enabled = true;
+            enemyAnimatoin.anim.transform.localScale = Vector3.one * enemyCurrentLocalScale;
             //colliderr.isTrigger = false;
             canAttackTimer = attackRecoveryTime;
             isAttacking = false;
         }
 
         public HitFeedback hitFeedback;
+        public Transform hpBar, hpBase;
         public override void TakeDamage(int damage)
         {
             StopAllCoroutines();
@@ -118,6 +128,12 @@ namespace TopDown
             base.TakeDamage(damage);
             hitFeedback.AnimateTakeDamage();
 
+            float percentage = (float)currentHp / (float)healthPoints;
+
+
+            hpBase.gameObject.SetActive(true);
+            hpBar.gameObject.SetActive(true);
+            hpBar.transform.localScale = new Vector3(percentage, 1, 1);
         }
 
         public GameObject deathParticlePrefab;
