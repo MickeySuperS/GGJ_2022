@@ -88,7 +88,10 @@ namespace TopDown
 
 
         protected PlayerHealth health;
-        public abstract void TakeDamage(int health);
+        public virtual void TakeDamage(int health)
+        {
+            // playerAnimatoin.AnimateTakeDamage();
+        }
 
         public virtual void Die()
         {

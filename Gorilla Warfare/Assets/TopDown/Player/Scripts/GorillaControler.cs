@@ -36,10 +36,10 @@ namespace TopDown
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider enemycoll in hitEnemies)
             {
-                var iHitable = enemycoll.GetComponent<IHitable>();
+                var iHitable = enemycoll.GetComponentInParent<IHitable>();
                 if (iHitable != null)
                 {
-                    var enemy = enemycoll.GetComponent<IHitable>();
+                    var enemy = enemycoll.GetComponent<Enemy>();
                     if (enemy is EnemyFollow)
                         (enemy as EnemyFollow).enemyDamagedSpeed = knockBackVal;
 
@@ -53,9 +53,11 @@ namespace TopDown
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
 
-        public override void TakeDamage(int damage)
+        public override void TakeDamage(int damageAmount)
         {
+            base.TakeDamage(damageAmount);
             health.ApplyDamage(10);
+            playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
     }
 }

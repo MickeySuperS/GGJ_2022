@@ -5,14 +5,8 @@ using UnityEngine;
 
 namespace TopDown
 {
-
-
-
-
-
     public class PlayerAnimation : MonoBehaviour
     {
-
         public Animator anim;
         SpriteRenderer rend;
         [SerializeField] PlayerController pController;
@@ -23,6 +17,9 @@ namespace TopDown
             rend = GetComponent<SpriteRenderer>();
             rend.receiveShadows = true;
         }
+
+        public HitFeedback hitFeedback;
+
 
         public void Animate(Vector3 moveDirection, Vector3 lookAtPoint)
         {
@@ -51,8 +48,8 @@ namespace TopDown
             // WalkFacingForward
             // Idle_Back
             // WalkFacingBackward
-
         }
+
 
         public void PlayAttackAnim()
         {

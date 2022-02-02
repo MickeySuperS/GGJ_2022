@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TopDown
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IHitable
     {
 
         [HideInInspector] public PlayerController controller;
@@ -110,6 +110,8 @@ namespace TopDown
             gController.playerAnimatoin.anim.StopPlayback();
             hController.playerAnimatoin.anim.StopPlayback();
             lastShootingTime = -controller.attackCD;
+            hController.playerAnimatoin.hitFeedback.ApplyColor(0);
+            gController.playerAnimatoin.hitFeedback.ApplyColor(0);
 
             if (gController.enabled)
             {
@@ -129,5 +131,9 @@ namespace TopDown
             }
         }
 
+        public void TakeDamage(int damage)
+        {
+            controller.TakeDamage(damage);
+        }
     }
 }

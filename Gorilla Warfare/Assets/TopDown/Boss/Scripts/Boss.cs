@@ -54,6 +54,7 @@ namespace TopDown
         }
 
 
+        public HitFeedback hitFeedback;
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
@@ -61,7 +62,9 @@ namespace TopDown
             {
                 healthSlider.value = currentHealth / health;
                 Die();
+                return;
             }
+            hitFeedback.AnimateTakeDamage();
         }
 
         void Die()

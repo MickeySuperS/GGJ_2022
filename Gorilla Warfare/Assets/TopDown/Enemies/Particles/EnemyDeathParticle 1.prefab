@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 804334156765480592}
   - component: {fileID: 8007651890971912415}
   m_Layer: 0
-  m_Name: EnemyDeathParticle
+  m_Name: EnemyDeathParticle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 1, g: 0.87918895, b: 0.8160377, a: 1}
-      maxColor: {r: 0.8867924, g: 0.037646834, b: 0.1505649, a: 1}
+      maxColor: {r: 0.08770903, g: 0.8862745, b: 0.039215703, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

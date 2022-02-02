@@ -24,7 +24,7 @@ namespace TopDown
         private void OnTriggerEnter(Collider other)
         {
 
-            var hitable = other.gameObject.GetComponent<IHitable>();
+            var hitable = other.gameObject.GetComponentInParent<IHitable>();
             if (hitable != null)
             {
                 hitable.TakeDamage(10);

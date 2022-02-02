@@ -39,7 +39,9 @@ namespace TopDown
 
         public override void TakeDamage(int damageAmount)
         {
+            base.TakeDamage(damageAmount);
             health.ApplyDamage(20);
+            playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
     }
 }

@@ -110,18 +110,20 @@ namespace TopDown
             isAttacking = false;
         }
 
+        public HitFeedback hitFeedback;
         public override void TakeDamage(int damage)
         {
             StopAllCoroutines();
             EndAttackParams();
             base.TakeDamage(damage);
+            hitFeedback.AnimateTakeDamage();
 
         }
 
         public GameObject deathParticlePrefab;
         public override void Die()
         {
-            Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            Instantiate(deathParticlePrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
             base.Die();
         }
     }
