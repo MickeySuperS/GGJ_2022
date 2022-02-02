@@ -139,6 +139,7 @@ namespace TopDown
         public GameObject deathParticlePrefab;
         public override void Die()
         {
+            Screenshake.instance.StartShake(0.1f);
             Instantiate(deathParticlePrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
             base.Die();
         }

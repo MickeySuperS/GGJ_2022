@@ -44,6 +44,14 @@ namespace TopDown
             healthSlider.value = currentHealth / health;
         }
 
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.GetComponent<Player>())
+            {
+                teleportController.Teleport();
+            }
+        }
+
 
         [ContextMenu("Start BOSS FIGHT")]
         void StartBossFight()
