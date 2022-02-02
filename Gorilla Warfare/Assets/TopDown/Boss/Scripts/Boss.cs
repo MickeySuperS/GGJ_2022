@@ -65,6 +65,7 @@ namespace TopDown
                 return;
             }
             hitFeedback.AnimateTakeDamage();
+            Screenshake.instance.StartShake(0.04f);
         }
 
         void Die()

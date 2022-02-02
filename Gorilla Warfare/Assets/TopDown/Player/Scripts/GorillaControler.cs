@@ -46,6 +46,7 @@ namespace TopDown
                     iHitable.TakeDamage(25);
                 }
             }
+            Screenshake.instance.StartShake();
         }
 
         private void OnDrawGizmosSelected()

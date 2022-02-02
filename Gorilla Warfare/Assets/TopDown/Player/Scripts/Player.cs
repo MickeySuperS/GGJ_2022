@@ -38,6 +38,7 @@ namespace TopDown
         {
             if (controller.isDead) return;
             HandleRotationInput();
+            if (GamePause.gameIsPaused) return;
             HandleMoveInput();
             HandleAttack();
             HandleDash();
