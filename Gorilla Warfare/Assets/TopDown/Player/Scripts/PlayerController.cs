@@ -9,8 +9,9 @@ namespace TopDown
     {
         //Movment
         Rigidbody rb;
-        [Range(5, 30)]
+        public Vector3 rbVelocity => rb.velocity;
 
+        [Range(5, 30)]
         public float playerSpeed;
 
         Vector3 moveDirection;
@@ -35,6 +36,8 @@ namespace TopDown
         public PlayerAnimation playerAnimatoin;
 
         public bool canMoveWhileAttacking = true;
+
+        public ParticleSystem ps;
 
 
         private void Update()
@@ -105,6 +108,12 @@ namespace TopDown
             WinLoseScreen.instace.EndGame();
         }
 
+        public void EndPS()
+        {
+            if (ps)
+                ps.Stop();
+        }
+
         public bool isAttacking = false;
 
         public void PlayAttackAnim()
@@ -123,9 +132,13 @@ namespace TopDown
         {
             isDashing = true;
             dashDirection = moveDirection == Vector3.zero ? (lookAtPoint - transform.position).normalized : moveDirection;
+            if (ps)
+                ps.Play();
             yield return new WaitForSeconds(dashTime);
 
             isDashing = false;
+            if (ps)
+                ps.Stop();
 
         }
 

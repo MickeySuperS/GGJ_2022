@@ -26,7 +26,8 @@ namespace TopDown
         {
             damageTime = 0;
             StopAllCoroutines();
-            StartCoroutine(TakeDamageAnimation());
+            if (gameObject.activeSelf)
+                StartCoroutine(TakeDamageAnimation());
         }
 
         IEnumerator TakeDamageAnimation()

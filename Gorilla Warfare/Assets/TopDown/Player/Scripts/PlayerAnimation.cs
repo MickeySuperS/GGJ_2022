@@ -11,6 +11,8 @@ namespace TopDown
         SpriteRenderer rend;
         [SerializeField] PlayerController pController;
 
+        //public SpriteRenderer[] ghostEffect;
+
         private void Start()
         {
             anim = GetComponent<Animator>();
@@ -18,8 +20,25 @@ namespace TopDown
             rend.receiveShadows = true;
         }
 
-        public HitFeedback hitFeedback;
+        // public void AnimateGhost()
+        // {
+        //     for (int i = 0; i < ghostEffect.Length; i++)
+        //     {
+        //         ghostEffect[i].gameObject.SetActive(true);
+        //         var localPos = -pController.rbVelocity * i * 0.05f;
+        //         ghostEffect[i].transform.position = transform.position + localPos;
+        //     }
+        // }
 
+        // public void EndAnimateGhost()
+        // {
+        //     for (int i = 0; i < ghostEffect.Length; i++)
+        //     {
+        //         ghostEffect[i].gameObject.SetActive(false);
+        //     }
+        // }
+
+        public HitFeedback hitFeedback;
 
         public void Animate(Vector3 moveDirection, Vector3 lookAtPoint)
         {
@@ -68,8 +87,11 @@ namespace TopDown
             pController.isAttacking = false;
         }
 
+
+
         public void Die()
         {
+            gameObject.SetActive(false);
             anim.CrossFade("Die", 0.1f);
         }
     }

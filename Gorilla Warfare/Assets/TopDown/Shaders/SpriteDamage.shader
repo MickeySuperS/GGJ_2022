@@ -2,11 +2,14 @@ Shader "Sprites/SpriteDamange"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
         _DamageColor ("Damage Color", Color) = (1,1,1,1)
         _DamageEffect ("Damage Range", Range(0,1)) = 0
+        [MaterialToggle] _UseRainbow ("Use Rainbow", Float) = 0
+        _RainbowTex ("Rainbow Tex", 2D) = "white" {}
+        _Opacity ("Rainbow Tex", Range(0,1)) = 1
     }
 
     SubShader
@@ -63,10 +66,13 @@ Shader "Sprites/SpriteDamange"
             }
 
             sampler2D _MainTex;
+            sampler2D _RainbowTex;
             sampler2D _AlphaTex;
             float _AlphaSplitEnabled;
             fixed4 _DamageColor;
             float _DamageEffect;
+            float _UseRainbow;
+            float _Opacity;
 
             fixed4 SampleSpriteTexture (float2 uv)
             {
@@ -83,8 +89,17 @@ Shader "Sprites/SpriteDamange"
             fixed4 frag(v2f IN) : SV_Target
             {
                 fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
-                c.rgb *= c.a;
-                return lerp(c,_DamageColor*c.a,_DamageEffect);
+                if (_UseRainbow != 1)
+                {
+                    c.rgb *= c.a;
+                    return lerp(c,_DamageColor*c.a,_DamageEffect);
+                }
+                else
+                {
+                    float raninbowUV = IN.texcoord + 90 * _Time.x;
+                    fixed4 colRainbow = tex2D (_RainbowTex, raninbowUV);
+                    return colRainbow * c.a * _Opacity;
+                }
             }
             ENDCG
         }

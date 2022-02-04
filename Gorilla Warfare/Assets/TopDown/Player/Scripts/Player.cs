@@ -118,6 +118,8 @@ namespace TopDown
             {
                 gController.source.PlayOneShot(transformClip);
             }
+
+            hController.EndPS();
         }
 
         float lastShootingTime;

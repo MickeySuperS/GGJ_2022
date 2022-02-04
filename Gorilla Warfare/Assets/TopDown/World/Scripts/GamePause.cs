@@ -12,6 +12,7 @@ public class GamePause : MonoBehaviour
     void Start()
     {
         gameIsPaused = false;
+        PauseUI.SetActive(false);
     }
 
     // Update is called once per frame

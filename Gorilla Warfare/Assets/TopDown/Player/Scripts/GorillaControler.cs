@@ -27,11 +27,11 @@ namespace TopDown
             base.LookAt(lookAtPoint);
         }
 
-        public ParticleSystem ps;
+        public ParticleSystem gorillaSmashPS;
         public override void Attack()
         {
-            if (ps)
-                ps.Play();
+            if (gorillaSmashPS)
+                gorillaSmashPS.Play();
             source.PlayOneShot(gorillaSmash);
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider enemycoll in hitEnemies)
