@@ -44,8 +44,10 @@ namespace TopDown
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        public GamePause gamePause;
         public void GotoMenu()
         {
+            gamePause.ResumeGame();
             SceneManager.LoadScene(0);
         }
     }

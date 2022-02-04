@@ -11,7 +11,6 @@ namespace TopDown
 
         public void ShootBullet(Quaternion rotation)
         {
-            Debug.Log("allo");
             var bullet = Instantiate(bulletPrefab, muzzle.position, rotation) as Bullet;
             Destroy(bullet.gameObject, 5f);
             //bullet.transform.rotation = Quaternion.LookRotation(targetLocation - transform.position);
