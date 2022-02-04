@@ -7,7 +7,7 @@ namespace TopDown
     public class HitFeedback : MonoBehaviour
     {
 
-        SpriteRenderer rend;
+        [HideInInspector] public SpriteRenderer rend;
         private MaterialPropertyBlock block;
         private int lerpID;
 

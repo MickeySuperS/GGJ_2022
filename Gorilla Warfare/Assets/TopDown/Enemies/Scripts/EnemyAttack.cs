@@ -68,6 +68,11 @@ namespace TopDown
         }
         protected override void FixedUpdate()
         {
+            if (target.controller.isDead)
+            {
+                enemyAnimatoin.anim.enabled = false;
+                return;
+            }
             if (!isAttacking)
             {
                 base.FixedUpdate();

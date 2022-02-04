@@ -137,6 +137,7 @@ namespace TopDown
         public void TakeDamage(int damage)
         {
             controller.TakeDamage(damage);
+            Screenshake.instance.StartShake(-0.05f);
         }
     }
 }

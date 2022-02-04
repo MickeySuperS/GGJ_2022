@@ -27,6 +27,9 @@ namespace TopDown
         public AudioClip gameStartClip;
         public AudioSource source;
 
+        public float timeToSwitchBetweenStages = 3f;
+        bool invunrable = false;
+
         private void Start()
         {
             teleportController = GetComponentInChildren<TeleportController>();
@@ -46,6 +49,7 @@ namespace TopDown
 
         private void OnCollisionEnter(Collision other)
         {
+            if (invunrable) return;
             if (other.gameObject.GetComponent<Player>())
             {
                 teleportController.Teleport();
@@ -65,6 +69,7 @@ namespace TopDown
         public HitFeedback hitFeedback;
         public void TakeDamage(int damage)
         {
+            if (invunrable) return;
             currentHealth -= damage;
             if (currentHealth <= 0)
             {
@@ -108,11 +113,23 @@ namespace TopDown
                     {
                         bossStageManager.currentStageIndex++;
                         ApplyStage();
+                        StartCoroutine(SwitchBetweenStages());
                     }
                 }
                 yield return null;
             }
             Die();
+        }
+
+        IEnumerator SwitchBetweenStages()
+        {
+            invunrable = true;
+            hitFeedback.rend.color = Color.red;
+            shootController.StopShooting();
+            moveController.StopMoving();
+            yield return new WaitForSeconds(timeToSwitchBetweenStages);
+            invunrable = false;
+            hitFeedback.rend.color = Color.white;
         }
 
 
@@ -149,8 +166,11 @@ namespace TopDown
                     yield return new WaitForSeconds(Random.Range(0, 2f));
                     if (Random.Range(0, 2) == 1)
                     {
-                        moveController.StartMoving();
-                        yield return new WaitForSeconds(Random.Range(0, currentStage.movingTime));
+                        if (!invunrable)
+                        {
+                            moveController.StartMoving();
+                            yield return new WaitForSeconds(Random.Range(0, currentStage.movingTime));
+                        }
                     }
                     moveController.StopMoving();
                 }
@@ -168,8 +188,11 @@ namespace TopDown
                     yield return new WaitForSeconds(Random.Range(0, 2f));
                     if (Random.Range(0, 2) == 1)
                     {
-                        shootController.StartShooting();
-                        yield return new WaitForSeconds(Random.Range(0, currentStage.movingTime));
+                        if (!invunrable)
+                        {
+                            shootController.StartShooting();
+                            yield return new WaitForSeconds(Random.Range(0, currentStage.movingTime));
+                        }
                     }
                     shootController.StopShooting();
 
@@ -187,8 +210,11 @@ namespace TopDown
                     yield return new WaitForSeconds(Random.Range(0, 2f));
                     if (Random.Range(0, 2) == 1)
                     {
-                        teleportController.Teleport();
-                        yield return new WaitForSeconds(Random.Range(currentStage.teleportTime, currentStage.teleportTime + currentStage.timeAfterTeleport));
+                        if (!invunrable)
+                        {
+                            teleportController.Teleport();
+                            yield return new WaitForSeconds(Random.Range(currentStage.teleportTime, currentStage.teleportTime + currentStage.timeAfterTeleport));
+                        }
                     }
                 }
                 yield return null;
@@ -204,9 +230,12 @@ namespace TopDown
                     yield return new WaitForSeconds(Random.Range(0, 2f));
                     if (Random.Range(0, 2) == 1)
                     {
-                        bossAnimation.Summon();
-                        spawnEnemyController.SpawnEnemies();
-                        yield return new WaitForSeconds(Random.Range(currentStage.spawnEnemyTime, currentStage.spawnEnemyTime + 3));
+                        if (!invunrable)
+                        {
+                            bossAnimation.Summon();
+                            spawnEnemyController.SpawnEnemies();
+                            yield return new WaitForSeconds(Random.Range(currentStage.spawnEnemyTime, currentStage.spawnEnemyTime + 3));
+                        }
                     }
                 }
                 yield return null;
