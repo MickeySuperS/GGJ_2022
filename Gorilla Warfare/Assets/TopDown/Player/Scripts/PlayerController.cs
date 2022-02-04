@@ -125,11 +125,15 @@ namespace TopDown
 
         public void Dash()
         {
-            StartCoroutine(DashCORO());
+            if (canDash)
+                StartCoroutine(DashCORO());
         }
 
+        public AudioClip dashAudioClip;
+        public bool canDash = false;
         IEnumerator DashCORO()
         {
+            source.PlayOneShot(dashAudioClip);
             isDashing = true;
             dashDirection = moveDirection == Vector3.zero ? (lookAtPoint - transform.position).normalized : moveDirection;
             if (ps)
