@@ -8,19 +8,15 @@ namespace TopDown
     public abstract class PlayerController : MonoBehaviour, IHitable
     {
         //Movment
-        Rigidbody rb;
+        protected Rigidbody rb;
         public Vector3 rbVelocity => rb.velocity;
 
         [Range(5, 30)]
         public float playerSpeed;
 
-        Vector3 moveDirection;
-        Vector3 lookAtPoint;
+        protected Vector3 moveDirection;
+        protected Vector3 lookAtPoint;
 
-        //Dash
-        bool isDashing = false;
-        Vector3 dashDirection;
-        public float dashSpeed, dashTime;
 
         //Attack
         public float attackCD;
@@ -37,7 +33,7 @@ namespace TopDown
 
         public bool canMoveWhileAttacking = true;
 
-        public ParticleSystem ps;
+
 
 
         private void Update()
@@ -61,22 +57,7 @@ namespace TopDown
                 rb.velocity = Vector3.zero;
                 return;
             }
-
-
-            if (isDashing)
-            {
-                rb.velocity = dashDirection * dashSpeed;
-            }
-            else
-            {
-                rb.velocity = moveDirection * playerSpeed;
-
-                // if (moveDirection != Vector3.zero)
-                // {
-                //     var targetRotation = Quaternion.LookRotation(lookAtPoint - transform.position);
-                //     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.4f);
-                // }
-            }
+            rb.velocity = moveDirection * playerSpeed;
         }
 
         public void SetMoveDirection(Vector3 moveDirection)
@@ -108,10 +89,9 @@ namespace TopDown
             WinLoseScreen.instace.EndGame();
         }
 
-        public void EndPS()
+        public virtual void EndPS()
         {
-            if (ps)
-                ps.Stop();
+
         }
 
         public bool isAttacking = false;
@@ -123,29 +103,7 @@ namespace TopDown
 
         public abstract void Attack();
 
-        public void Dash()
-        {
-            if (canDash)
-                StartCoroutine(DashCORO());
-        }
-
-        public AudioClip dashAudioClip;
-        public bool canDash = false;
-        IEnumerator DashCORO()
-        {
-            source.PlayOneShot(dashAudioClip);
-            isDashing = true;
-            dashDirection = moveDirection == Vector3.zero ? (lookAtPoint - transform.position).normalized : moveDirection;
-            if (ps)
-                ps.Play();
-            yield return new WaitForSeconds(dashTime);
-
-            isDashing = false;
-            if (ps)
-                ps.Stop();
-
-        }
-
+        public abstract void OtherAbility();
 
     }
 }

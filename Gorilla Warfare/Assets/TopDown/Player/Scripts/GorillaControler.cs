@@ -60,5 +60,10 @@ namespace TopDown
             health.ApplyDamage(10);
             playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
+
+        public override void OtherAbility()
+        {
+
+        }
     }
 }

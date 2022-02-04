@@ -18,6 +18,20 @@ namespace TopDown
             shoots = GetComponentsInChildren<Shoot>();
         }
 
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (isDashing)
+            {
+                rb.velocity = dashDirection * dashSpeed;
+            }
+            else
+            {
+                rb.velocity = moveDirection * playerSpeed;
+            }
+        }
+
 
         public override void LookAt(Vector3 lookAtPoint)
         {
@@ -28,7 +42,6 @@ namespace TopDown
 
         public override void Attack()
         {
-
             foreach (var item in shoots)
             {
                 item.ShootBullet(shoots[0].transform.parent.rotation);
@@ -37,11 +50,56 @@ namespace TopDown
             source.PlayOneShot(attackAudio);
         }
 
+        public override void OtherAbility()
+        {
+            Dash();
+        }
+
         public override void TakeDamage(int damageAmount)
         {
             base.TakeDamage(damageAmount);
             health.ApplyDamage(20);
             playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
+
+
+        //Dash
+        bool isDashing = false;
+        Vector3 dashDirection;
+        public float dashSpeed, dashTime;
+
+        public AudioClip dashAudioClip;
+        public bool canDash = false;
+        public ParticleSystem ps;
+
+
+        void Dash()
+        {
+            if (canDash)
+                StartCoroutine(DashCORO());
+        }
+
+        IEnumerator DashCORO()
+        {
+            source.PlayOneShot(dashAudioClip);
+            isDashing = true;
+            dashDirection = moveDirection == Vector3.zero ? (lookAtPoint - transform.position).normalized : moveDirection;
+            if (ps)
+                ps.Play();
+            yield return new WaitForSeconds(dashTime);
+
+            isDashing = false;
+            if (ps)
+                ps.Stop();
+
+        }
+
+        public override void EndPS()
+        {
+            base.EndPS();
+            if (ps)
+                ps.Stop();
+        }
+
     }
 }

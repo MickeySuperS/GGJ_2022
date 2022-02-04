@@ -58,7 +58,7 @@ namespace TopDown
         private void HandleDash()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                controller.Dash();
+                controller.OtherAbility();
         }
 
         void HandleMoveInput()
