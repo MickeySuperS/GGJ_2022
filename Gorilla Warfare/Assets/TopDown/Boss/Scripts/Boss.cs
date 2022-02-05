@@ -42,12 +42,27 @@ namespace TopDown
             target = FindObjectOfType<Player>();
             currentHealth = health;
             bossAnimation = GetComponentInChildren<BossAnimations>();
+            playerDied = false;
             StartBossFight();
         }
 
+
+        bool playerDied = false;
         private void Update()
         {
             healthSlider.value = currentHealth / health;
+            if (!playerDied && target.controller.isDead)
+            {
+                playerDied = true;
+                PlayerLost();
+            }
+        }
+
+        void PlayerLost()
+        {
+            bgmSource.loop = false;
+            bgmSource.clip = loseClip;
+            bgmSource.Play();
         }
 
         private void OnCollisionEnter(Collision other)
@@ -87,6 +102,7 @@ namespace TopDown
         void Die()
         {
             StopAllCoroutines();
+            bgmSource.loop = false;
             bgmSource.clip = winClip;
             bgmSource.Play();
             source.PlayOneShot(endStageClip);

@@ -145,7 +145,8 @@ namespace TopDown
         public override void Die()
         {
             Screenshake.instance.StartShake(0.1f);
-            Instantiate(deathParticlePrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+            var go = Instantiate(deathParticlePrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+            go.GetComponent<AudioSource>().pitch = Random.Range(0.7f, 1.3f);
             base.Die();
         }
     }

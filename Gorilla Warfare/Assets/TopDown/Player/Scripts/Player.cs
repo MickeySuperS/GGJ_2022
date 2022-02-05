@@ -134,8 +134,11 @@ namespace TopDown
             }
         }
 
+        public AudioClip playerGetHitClip;
         public void TakeDamage(int damage)
         {
+            if (playerGetHitClip)
+                controller.source.PlayOneShot(playerGetHitClip);
             controller.TakeDamage(damage);
             Screenshake.instance.StartShake(-0.05f);
         }

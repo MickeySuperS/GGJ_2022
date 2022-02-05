@@ -34,11 +34,25 @@ namespace TopDown
         public bool canMoveWhileAttacking = true;
 
 
+        public AudioSource walkingSource;
 
 
         private void Update()
         {
             playerAnimatoin.Animate(moveDirection, lookAtPoint);
+            if (rb.velocity != Vector3.zero)
+            {
+                if (!walkingSource.isPlaying)
+                {
+                    walkingSource.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
+                    walkingSource.Play();
+                }
+            }
+            else
+            {
+                if (walkingSource.isPlaying)
+                    walkingSource.Pause();
+            }
         }
 
         protected virtual void Start()
