@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace TopDown
 {
@@ -32,6 +33,8 @@ namespace TopDown
 
         public float timeToSwitchBetweenStages = 3f;
         bool invunrable = false;
+
+        public TextMeshProUGUI bossStageText;
 
         private void Start()
         {
@@ -125,6 +128,7 @@ namespace TopDown
             StartCoroutine(ShootingCORO());
             StartCoroutine(TeleportCORO());
             StartCoroutine(SpawnCORO());
+            StartCoroutine(ShowCurrentStage("Stage 1"));
             ApplyStage();
             bgmSource.Play();
             while (currentHealth > 0)
@@ -144,8 +148,20 @@ namespace TopDown
             Die();
         }
 
+        int currentStageIndex = 1;
+        IEnumerator ShowCurrentStage(string text = "Stage 1")
+        {
+            yield return null;
+            bossStageText.text = text;
+            yield return new WaitForSeconds(4f);
+            bossStageText.text = "";
+        }
+
         IEnumerator SwitchBetweenStages()
         {
+            currentStageIndex++;
+            PowerUpsManager.instance.GeneratePowerUps();
+            StartCoroutine(ShowCurrentStage($"Stage {currentStageIndex}"));
             invunrable = true;
             bgmSource.Stop();
             source.PlayOneShot(endStageClip);

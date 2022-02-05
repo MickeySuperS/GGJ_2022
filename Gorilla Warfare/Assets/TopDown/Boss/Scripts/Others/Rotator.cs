@@ -13,11 +13,11 @@ public class Rotator : MonoBehaviour
     {
         currentRot = transform.eulerAngles;
         if (x)
-            currentRot.x += rotateSpeed * Time.deltaTime;
+            currentRot.x += rotateSpeed * Time.unscaledDeltaTime;
         if (y)
-            currentRot.y += rotateSpeed * Time.deltaTime;
+            currentRot.y += rotateSpeed * Time.unscaledDeltaTime;
         if (z)
-            currentRot.z += rotateSpeed * Time.deltaTime;
+            currentRot.z += rotateSpeed * Time.unscaledDeltaTime;
         transform.rotation = Quaternion.Euler(currentRot);
     }
 }

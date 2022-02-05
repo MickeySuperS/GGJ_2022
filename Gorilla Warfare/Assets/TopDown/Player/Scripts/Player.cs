@@ -8,8 +8,8 @@ namespace TopDown
     {
 
         [HideInInspector] public PlayerController controller;
-        [SerializeField] HunterController hController;
-        [SerializeField] GorillaControler gController;
+        public HunterController hController;
+        public GorillaControler gController;
         [SerializeField] GameObject hObject;
         [SerializeField] GameObject gObject;
 

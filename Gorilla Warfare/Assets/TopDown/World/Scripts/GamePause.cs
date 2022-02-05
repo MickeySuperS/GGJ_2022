@@ -6,6 +6,13 @@ using UnityEngine.Audio;
 public class GamePause : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public static GamePause instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public static bool gameIsPaused;
 
     public GameObject PauseUI;
@@ -33,11 +40,23 @@ public class GamePause : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
-        worldAudioSource.PlayOneShot(pauseAudio);
         pausedSnapshot.TransitionTo(0.1f);
         PauseUI.SetActive(true);
+        //worldAudioSource.PlayOneShot(pauseAudio);
+        Time.timeScale = 0;
+        gameIsPaused = true;
+    }
+
+    public void PauseGame(bool withUI = true)
+    {
+        if (withUI)
+        {
+            pausedSnapshot.TransitionTo(0.1f);
+            PauseUI.SetActive(true);
+        }
+        worldAudioSource.PlayOneShot(pauseAudio);
         Time.timeScale = 0;
         gameIsPaused = true;
     }
@@ -45,8 +64,19 @@ public class GamePause : MonoBehaviour
     public void ResumeGame()
     {
         unPausedSnapshot.TransitionTo(0f);
-        Time.timeScale = 1;
         PauseUI.SetActive(false);
+        Time.timeScale = 1;
+        gameIsPaused = false;
+    }
+
+    public void ResumeGame(bool withUI = true)
+    {
+        if (withUI)
+        {
+            unPausedSnapshot.TransitionTo(0f);
+            PauseUI.SetActive(false);
+        }
+        Time.timeScale = 1;
         gameIsPaused = false;
     }
 }
