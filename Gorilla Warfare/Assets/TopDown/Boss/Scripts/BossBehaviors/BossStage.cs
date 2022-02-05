@@ -11,6 +11,8 @@ namespace TopDown
         [Range(0, 1)]
         public float percentageToMoveNext;
 
+        public AudioClip bgmClip;
+
 
         [Header("Teleport")]
         public bool TeleportEnabled;

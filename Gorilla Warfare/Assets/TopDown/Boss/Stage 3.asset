@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stage 3
   m_EditorClassIdentifier: 
   percentageToMoveNext: 0.2
+  bgmClip: {fileID: 8300000, guid: d2000abb6a0daeb4faf9e0ebe5549634, type: 3}
   TeleportEnabled: 1
   teleportTime: 5
   timeBeforeTeleport: 0.1

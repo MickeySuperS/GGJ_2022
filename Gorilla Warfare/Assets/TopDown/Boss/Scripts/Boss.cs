@@ -26,6 +26,9 @@ namespace TopDown
 
         public AudioClip gameStartClip;
         public AudioSource source;
+        public AudioSource bgmSource;
+
+        public AudioClip endStageClip, winClip, loseClip;
 
         public float timeToSwitchBetweenStages = 3f;
         bool invunrable = false;
@@ -84,6 +87,9 @@ namespace TopDown
         void Die()
         {
             StopAllCoroutines();
+            bgmSource.clip = winClip;
+            bgmSource.Play();
+            source.PlayOneShot(endStageClip);
             moveController.StopMoving();
             shootController.StopShooting();
             shootController.targetPlayer = false;
@@ -104,6 +110,7 @@ namespace TopDown
             StartCoroutine(TeleportCORO());
             StartCoroutine(SpawnCORO());
             ApplyStage();
+            bgmSource.Play();
             while (currentHealth > 0)
             {
                 float percentage = currentHealth / health;
@@ -124,17 +131,23 @@ namespace TopDown
         IEnumerator SwitchBetweenStages()
         {
             invunrable = true;
+            bgmSource.Stop();
+            source.PlayOneShot(endStageClip);
             hitFeedback.rend.color = Color.red;
             shootController.StopShooting();
             moveController.StopMoving();
             yield return new WaitForSeconds(timeToSwitchBetweenStages);
             invunrable = false;
             hitFeedback.rend.color = Color.white;
+            bgmSource.Play();
         }
 
 
         void ApplyStage()
         {
+            //Audio
+            bgmSource.clip = currentStage.bgmClip;
+
             //Teleport
             teleportController.timeBeforeTeleport = currentStage.timeBeforeTeleport;
             teleportController.timeAfterTeleport = currentStage.timeAfterTeleport;
