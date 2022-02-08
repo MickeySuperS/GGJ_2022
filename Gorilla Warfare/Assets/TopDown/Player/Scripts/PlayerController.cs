@@ -41,10 +41,16 @@ namespace TopDown
 
         private void Update()
         {
+
             playerAnimatoin.Animate(moveDirection, lookAtPoint);
             if (rb.velocity != Vector3.zero)
             {
-                if (!walkingSource.isPlaying)
+                if (GamePause.gameIsPaused)
+                {
+                    if (walkingSource.isPlaying)
+                        walkingSource.Pause();
+                }
+                else if (!walkingSource.isPlaying)
                 {
                     walkingSource.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
                     walkingSource.Play();

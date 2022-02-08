@@ -21,6 +21,9 @@ namespace TopDown
 
         public bool interactable = true;
 
+        public AudioSource source;
+        public AudioClip hoverClip;
+
 
         public void SetupCard(string nameText, string detailText, Sprite sprite, bool isRare, Action callback)
         {
@@ -50,6 +53,7 @@ namespace TopDown
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!interactable) return;
+            source.PlayOneShot(hoverClip);
             transform.localScale = Vector3.one * 1.2f;
             foreach (var item in displayHoverText)
             {

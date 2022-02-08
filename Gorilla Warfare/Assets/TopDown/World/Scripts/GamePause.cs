@@ -59,7 +59,7 @@ public class GamePause : MonoBehaviour
             pausedSnapshot.TransitionTo(0.1f);
             PauseUI.SetActive(true);
         }
-        worldAudioSource.PlayOneShot(pauseAudio);
+        //worldAudioSource.PlayOneShot(pauseAudio);
         Time.timeScale = 0;
         gameIsPaused = true;
     }

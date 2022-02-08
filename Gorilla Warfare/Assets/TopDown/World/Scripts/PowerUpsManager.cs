@@ -48,7 +48,7 @@ namespace TopDown
             var newCardUI = Instantiate(powerUpUIParent.GetChild(0).gameObject, powerUpUIParent, false);
             newCardUI.SetActive(true);
             newCardUI.GetComponent<CardScript>().SetupCard(card);
-
+            GamePause.instance.worldAudioSource.PlayOneShot(GamePause.instance.pauseAudio);
         }
 
         public System.Action GetCallback(PowerUps powerUp, bool isRare, CardScript card)
