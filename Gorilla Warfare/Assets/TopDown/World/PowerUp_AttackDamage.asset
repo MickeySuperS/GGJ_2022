@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PowerUp_AttackDamage
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 7b27ab5c8e34e864d99cdd096ebeb17d, type: 3}
-  mainText: Damage
+  mainText: Amplify Damage
   detailText: x2 Damage Applied
   rareDetailsText: x4 Damage Applied
   powerupType: 0
