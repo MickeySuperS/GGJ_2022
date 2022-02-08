@@ -13,6 +13,7 @@ namespace TopDown
         Rigidbody rb;
         float localTimer = 0;
         public GameObject particlePrefab;
+        public int bulletDamange = 10;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -27,7 +28,7 @@ namespace TopDown
             var hitable = other.gameObject.GetComponentInParent<IHitable>();
             if (hitable != null)
             {
-                hitable.TakeDamage(10);
+                hitable.TakeDamage(bulletDamange);
             }
             Instantiate(particlePrefab, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);

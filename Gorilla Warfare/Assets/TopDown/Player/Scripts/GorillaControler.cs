@@ -43,7 +43,7 @@ namespace TopDown
                     if (enemy is EnemyFollow)
                         (enemy as EnemyFollow).enemyDamagedSpeed = knockBackVal;
 
-                    iHitable.TakeDamage(25);
+                    iHitable.TakeDamage(damageValue);
                 }
             }
             Screenshake.instance.StartShake();
@@ -56,8 +56,9 @@ namespace TopDown
 
         public override void TakeDamage(int damageAmount)
         {
-            base.TakeDamage(damageAmount);
-            health.ApplyDamage(10);
+            int finalDamangeAmount = (int)((float)damageAmount * 0.5f * damageFactor);
+            base.TakeDamage(finalDamangeAmount);
+            health.ApplyDamage(finalDamangeAmount);
             playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
 

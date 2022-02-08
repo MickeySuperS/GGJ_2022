@@ -44,7 +44,7 @@ namespace TopDown
         {
             foreach (var item in shoots)
             {
-                item.ShootBullet(shoots[0].transform.parent.rotation);
+                item.ShootBullet(shoots[0].transform.parent.rotation, damageValue);
             }
             source.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
             source.PlayOneShot(attackAudio);
@@ -57,8 +57,9 @@ namespace TopDown
 
         public override void TakeDamage(int damageAmount)
         {
-            base.TakeDamage(damageAmount);
-            health.ApplyDamage(20);
+            int finalDamangeAmount = (int)((float)damageAmount * damageFactor);
+            base.TakeDamage(finalDamangeAmount);
+            health.ApplyDamage(finalDamangeAmount);
             playerAnimatoin.hitFeedback.AnimateTakeDamage();
         }
 

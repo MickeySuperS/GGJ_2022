@@ -9,6 +9,7 @@ namespace TopDown
         public int healthPoints;
         protected int currentHp;
         protected Player target;
+        public int enemyDamage = 20;
 
         protected EnemyAnimation enemyAnimatoin;
 

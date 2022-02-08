@@ -35,17 +35,19 @@ namespace TopDown
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.GetComponent<Enemy>())
+            var enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy)
             {
-                player.controller.TakeDamage(10);
+                player.controller.TakeDamage(enemy.enemyDamage);
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<Enemy>())
+            var enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy)
             {
-                player.controller.TakeDamage(10);
+                player.controller.TakeDamage(enemy.enemyDamage);
             }
         }
 

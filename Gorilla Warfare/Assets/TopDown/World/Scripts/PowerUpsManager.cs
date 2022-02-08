@@ -46,7 +46,14 @@ namespace TopDown
             switch (powerUp)
             {
                 case PowerUps.AttackDamange:
-                    return null;
+                    if (isRare)
+                    {
+                        return () => { targetPlayer.hController.damageValue = 50; targetPlayer.gController.damageValue = 100; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                    }
+                    else
+                    {
+                        return () => { targetPlayer.hController.damageValue = 20; targetPlayer.gController.damageValue = 30; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                    }
 
                 case PowerUps.AttackSpeed:
                     if (isRare)
@@ -75,6 +82,17 @@ namespace TopDown
                     {
                         return () => { targetPlayer.hController.playerSpeed = 8f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
+
+                case PowerUps.Shield:
+                    if (isRare)
+                    {
+                        return () => { targetPlayer.hController.damageFactor -= 0.5f; targetPlayer.gController.damageFactor -= 0.5f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                    }
+                    else
+                    {
+                        return () => { targetPlayer.hController.damageFactor -= 0.25f; targetPlayer.gController.damageFactor -= 0.25f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                    }
+
 
                 default:
                     return null;

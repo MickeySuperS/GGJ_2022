@@ -542,6 +542,8 @@ MonoBehaviour:
   playerSpeed: 7
   attackCD: 1.5
   knockBackVal: -100
+  damageValue: 25
+  damageFactor: 1
   isDead: 0
   attackAudio: {fileID: 0}
   source: {fileID: 94940900}
@@ -571,6 +573,8 @@ MonoBehaviour:
   playerSpeed: 8
   attackCD: 0.6
   knockBackVal: -30
+  damageValue: 10
+  damageFactor: 1
   isDead: 0
   attackAudio: {fileID: 8300000, guid: aa253b48f2122cf40b403810c1409fd6, type: 3}
   source: {fileID: 94940900}
@@ -20560,6 +20564,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ebd58425ffd0c584f91b9358c2be73ec, type: 2}
   - {fileID: 11400000, guid: 6aa9cf29ccc52e349a036820ee63a60a, type: 2}
   - {fileID: 11400000, guid: 6510e11519eb7cb4eb30c10ad836d95e, type: 2}
+  - {fileID: 11400000, guid: 027b3be131b670c43bbf82490e0adb9d, type: 2}
+  - {fileID: 11400000, guid: 321634217da76024faf32a3a66579fc4, type: 2}
   cards:
   - {fileID: 381366353}
   - {fileID: 1742012375}

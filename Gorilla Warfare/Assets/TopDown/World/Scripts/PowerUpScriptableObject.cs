@@ -20,6 +20,8 @@ namespace TopDown
         AttackDamange,
         AttackSpeed,
         Heart,
-        MoveSpeed
+        MoveSpeed,
+        Shield,
+        Random
     }
 }

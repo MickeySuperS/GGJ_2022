@@ -22,6 +22,8 @@ namespace TopDown
         public float attackCD;
         public float knockBackVal;
 
+        public int damageValue = 10;
+        public float damageFactor = 1f;
 
         public bool isDead = false;
 
