@@ -24,13 +24,14 @@ public class GamePause : MonoBehaviour
     void Start()
     {
         gameIsPaused = false;
+        pausedForPowerup = false;
         ResumeGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!pausedForPowerup && Input.GetKeyDown(KeyCode.Escape))
         {
             gameIsPaused = !gameIsPaused;
             if (gameIsPaused)
@@ -49,8 +50,10 @@ public class GamePause : MonoBehaviour
         gameIsPaused = true;
     }
 
+    bool pausedForPowerup = false;
     public void PauseGame(bool withUI = true)
     {
+        pausedForPowerup = !withUI;
         if (withUI)
         {
             pausedSnapshot.TransitionTo(0.1f);
@@ -71,6 +74,7 @@ public class GamePause : MonoBehaviour
 
     public void ResumeGame(bool withUI = true)
     {
+        pausedForPowerup = !withUI;
         if (withUI)
         {
             unPausedSnapshot.TransitionTo(0f);
