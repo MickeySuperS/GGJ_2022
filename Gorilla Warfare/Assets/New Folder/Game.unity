@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 8
-  attackCD: 0.6
+  attackCD: 0.65
   knockBackVal: -30
   damageValue: 10
   damageFactor: 1

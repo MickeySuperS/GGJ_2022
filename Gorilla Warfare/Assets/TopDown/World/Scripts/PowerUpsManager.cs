@@ -48,39 +48,39 @@ namespace TopDown
                 case PowerUps.AttackDamange:
                     if (isRare)
                     {
-                        return () => { targetPlayer.hController.damageValue = 50; targetPlayer.gController.damageValue = 100; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.damageValue += 30; targetPlayer.gController.damageValue += 60; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                     else
                     {
-                        return () => { targetPlayer.hController.damageValue = 20; targetPlayer.gController.damageValue = 30; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.damageValue += 10; targetPlayer.gController.damageValue += 20; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
 
                 case PowerUps.AttackSpeed:
                     if (isRare)
                     {
-                        return () => { targetPlayer.hController.attackCD = 0.2f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.attackCD -= 0.3f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                     else
                     {
-                        return () => { targetPlayer.hController.attackCD = 0.4f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.attackCD -= 0.2f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                 case PowerUps.Heart:
                     if (isRare)
                     {
-                        return () => { targetPlayer.GetComponent<PlayerHealth>().SetMaxHealth(4000f); GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.GetComponent<PlayerHealth>().SetMaxHealth(2500f); GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                     else
                     {
-                        return () => { targetPlayer.GetComponent<PlayerHealth>().SetMaxHealth(2000f); GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.GetComponent<PlayerHealth>().SetMaxHealth(1000f); GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                 case PowerUps.MoveSpeed:
                     if (isRare)
                     {
-                        return () => { targetPlayer.hController.playerSpeed = 12f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.playerSpeed += 4f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
                     else
                     {
-                        return () => { targetPlayer.hController.playerSpeed = 8f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
+                        return () => { targetPlayer.hController.playerSpeed += 2f; GamePause.instance.ResumeGame(); powerUpCanvas.gameObject.SetActive(false); };
                     }
 
                 case PowerUps.Shield:

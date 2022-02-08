@@ -15,8 +15,9 @@ namespace TopDown
 
         public RectTransform UIRect;
 
-        public void SetMaxHealth(float newMaxHealth)
+        public void SetMaxHealth(float addedValue)
         {
+            float newMaxHealth = maxHealth + addedValue;
             var sizeDelta = UIRect.sizeDelta;
             sizeDelta.x = newMaxHealth / 10;
             UIRect.sizeDelta = sizeDelta;
@@ -29,7 +30,7 @@ namespace TopDown
         private void Start()
         {
             currentHealth = maxHealth;
-            SetMaxHealth(maxHealth);
+            SetMaxHealth(0);
             player = GetComponent<Player>();
         }
 
