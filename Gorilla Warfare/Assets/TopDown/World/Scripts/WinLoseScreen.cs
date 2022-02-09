@@ -48,6 +48,7 @@ namespace TopDown
         public void GotoMenu()
         {
             gamePause.ResumeGame();
+            CursorChanger.instance.ResetCursor();
             SceneManager.LoadScene(0);
         }
     }
