@@ -32,6 +32,10 @@ namespace TopDown
 
             lastShootingTime = -100;
 
+            
+        }
+
+        private void Start() {
             StartCoroutine(SwitchControllerCORO());
         }
 
