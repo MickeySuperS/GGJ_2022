@@ -32,10 +32,11 @@ namespace TopDown
 
             lastShootingTime = -100;
 
-            
+
         }
 
-        private void Start() {
+        private void Start()
+        {
             StartCoroutine(SwitchControllerCORO());
         }
 
@@ -54,10 +55,13 @@ namespace TopDown
         public float warnBeforeSeconds = 3;
         float timeRemainingForSwitch = 0;
 
+        public SpriteRenderer warningRenderer;
+
         void HandleWarning()
         {
-
             warningGameObject.SetActive(timeRemainingForSwitch <= warnBeforeSeconds);
+            if (timeRemainingForSwitch <= warnBeforeSeconds)
+                warningRenderer.material.SetFloat("_Gradient", timeRemainingForSwitch / warnBeforeSeconds);
         }
 
         private void HandleDash()

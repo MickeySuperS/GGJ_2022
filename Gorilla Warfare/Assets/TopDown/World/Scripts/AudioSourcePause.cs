@@ -15,6 +15,12 @@ namespace TopDown
             souce = GetComponent<AudioSource>();
         }
 
+        private void OnEnable()
+        {
+            if (!souce) souce = GetComponent<AudioSource>();
+            souce.Play();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -23,11 +29,11 @@ namespace TopDown
                 if (souce.isPlaying)
                     souce.Pause();
             }
-            else if (!souce.isPlaying)
-            {
-                // souce.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
-                souce.Play();
-            }
+            // else if (!souce.isPlaying)
+            // {
+            //     // souce.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
+            //     souce.Play();
+            // }
         }
     }
 }
