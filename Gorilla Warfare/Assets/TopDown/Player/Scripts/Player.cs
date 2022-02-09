@@ -19,7 +19,8 @@ namespace TopDown
 
         public float switchingRandomMin = 5, switchingRandomMax = 8;
 
-        public AudioClip transformClip;
+        public AudioClip transformClip, poofAudioClip;
+        public ParticleSystem transformPs;
 
         private void Awake()
         {
@@ -114,9 +115,16 @@ namespace TopDown
             hController.playerAnimatoin.hitFeedback.ApplyColor(0);
             gController.playerAnimatoin.hitFeedback.ApplyColor(0);
 
+            gController.source.PlayOneShot(poofAudioClip);
+            transformPs.Play();
             if (gController.enabled)
             {
                 gController.source.PlayOneShot(transformClip);
+                CursorChanger.instance.SetGorillaCursor();
+            }
+            else
+            {
+                CursorChanger.instance.SetHunterCursor();
             }
 
             hController.EndPS();
